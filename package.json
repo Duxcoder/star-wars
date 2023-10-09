@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "lint": "eslint --fix",
-    "prettier": "prettier . --write"
+    "fix": "prettier . --write"
   },
   "dependencies": {
     "react": "^18.2.0",
