@@ -3,6 +3,7 @@ import { HeaderProps } from '../../types';
 import cl from './MyHeader.module.css';
 import MyButton from '../UI/MyButton/MyButton';
 import MyInput from '../UI/MyInput/MyInput';
+import { RiSearch2Line } from 'react-icons/ri';
 class MyHeader extends Component<HeaderProps> {
   constructor(props: HeaderProps) {
     super(props);
@@ -16,8 +17,10 @@ class MyHeader extends Component<HeaderProps> {
             <span className={cl.logoName}>{this.props.logo}</span>
           </a>
           <div className={cl.searchContainer}>
-            <MyInput type={'search'} disabled={false} placeholder={'Find anything...'} />
-            <MyButton name={'Search'} disabled={false} />
+            <MyInput type={'search'} placeholder={'Find anything...'} />
+            <MyButton name={'Search'}>
+              <RiSearch2Line />
+            </MyButton>
           </div>
         </div>
       </header>

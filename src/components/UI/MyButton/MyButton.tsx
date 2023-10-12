@@ -12,6 +12,7 @@ class MyButton extends Component<ButtonProps> {
   render() {
     return (
       <button disabled={this.props.disabled} className={cl.button}>
+        {this.props.children}
         {this.props.name}
       </button>
     );

@@ -2,6 +2,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 0.2em;
   padding: 0.6em 1em;
   font-size: 1em;
   color: #000000;
@@ -11,5 +12,8 @@
   cursor: pointer;
 }
 .button:hover {
-  background: #f3f3f3;
+  background: #dedede;
+}
+.button:active {
+  background: #ababab;
 }
