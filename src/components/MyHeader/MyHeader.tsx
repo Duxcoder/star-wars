@@ -1,6 +1,8 @@
 import { Component } from 'react';
 import { HeaderProps } from '../../types';
 import cl from './MyHeader.module.css';
+import MyButton from '../UI/MyButton/MyButton';
+import MyInput from '../UI/MyInput/MyInput';
 class MyHeader extends Component<HeaderProps> {
   constructor(props: HeaderProps) {
     super(props);
@@ -10,11 +12,13 @@ class MyHeader extends Component<HeaderProps> {
     return (
       <header className={cl.header}>
         <div className={this._containerClasses.join(' ')}>
-          <div className={cl.logo}>
-            <img className={cl.logoImg} src={this.props.logoImg} alt={'logotype'} />
+          <a href="/" className={cl.logo}>
             <span className={cl.logoName}>{this.props.logo}</span>
+          </a>
+          <div className={cl.searchContainer}>
+            <MyInput type={'search'} disabled={false} placeholder={'Find anything...'} />
+            <MyButton name={'Search'} disabled={false} />
           </div>
-          <h1>Navigation</h1>
         </div>
       </header>
     );

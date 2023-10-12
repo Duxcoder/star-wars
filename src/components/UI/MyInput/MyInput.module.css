@@ -1,0 +1,29 @@
+.input {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.6em 1.2em;
+  font-size: 1.2em;
+  color: #858585;
+  background: #292929;
+  border-radius: 1em;
+  width: 14vw;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  border: 1px solid #3b3b3b;
+  transition: all 0.3s;
+}
+.input:hover {
+  background: #fff;
+  cursor: pointer;
+}
+.input:focus {
+  background: #fff;
+  outline: none;
+  width: 30vw;
+  cursor: auto;
+}
+.input[type='search']::-webkit-search-cancel-button {
+  cursor: pointer;
+  transition: all 0.3s;
+}
