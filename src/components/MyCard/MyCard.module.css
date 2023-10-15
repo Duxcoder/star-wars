@@ -1,0 +1,15 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  padding: 1em;
+  border-radius: 4px;
+  background-color: #fff;
+}
+
+.cardRow {
+  display: grid;
+  grid-template-columns: minmax(160px, max-content) 3fr;
+  overflow-wrap: anywhere;
+  gap: 1em;
+}

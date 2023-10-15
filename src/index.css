@@ -28,7 +28,9 @@ body {
   display: flex;
   flex-direction: column;
   font-family: 'Poppins', sans-serif;
+  min-height: 100vh;
   margin: 0 auto;
+  background: radial-gradient(#252f58, #1f2734);
 }
 .container {
   max-width: 1280px;
