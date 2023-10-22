@@ -20,9 +20,9 @@ class MyCard extends Component<CardProps, CardState> {
   renderCard() {
     const cardData = this.state.data;
     if (cardData !== null) {
-      return Object.entries(cardData).map((card) => {
+      return Object.entries(cardData).map((card, i) => {
         return (
-          <div className={cl.cardRow}>
+          <div className={cl.cardRow} key={i}>
             <span className={cl.cardRowName}>{card[0].split('_').join(' ')}</span>
             <span className={cl.cardRowValue}>{card[1]}</span>
           </div>

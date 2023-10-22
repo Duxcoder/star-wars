@@ -122,6 +122,7 @@ export type CardAllCategory =
   | CardVehiclesCategory;
 export interface ContentState {
   data: [] | CardAllCategory[];
+  fetching: boolean;
 }
 export interface CardListProps {
   cards: [] | CardAllCategory[];
