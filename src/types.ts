@@ -137,40 +137,42 @@ export type CardAll = CardPeople | CardVehicle | CardFilm | CardStarship | CardS
 export interface CardPeople {
   name: string;
   gender: string;
-  films: string[];
-  species: string[];
-  starships: string[];
-  vehicles: string[];
+  hair_color: string;
+  height: string;
+  mass: string;
 }
 export interface CardVehicle {
   name: string;
-  pilots: string[];
-  films: string[];
+  crew: string;
+  manufacturer: string;
+  model: string;
+  passengers: string;
 }
 export interface CardFilm {
   title: string;
   director: string;
   producer: string;
+  release_date: string;
   opening_crawl: string;
 }
 export interface CardStarship {
   name: string;
-  pilots: string[];
+  manufacturer: string;
+  crew: string;
   passengers: string;
   cost_in_credits: string;
-  films: string[];
 }
 export interface CardSpecies {
   name: string;
   classification: string;
   designation: string;
   language: string;
-  films: string[];
+  skin_colors: string;
 }
 export interface CardPlanet {
   name: string;
+  diameter: string;
   climate: string;
   population: string;
   terrain: string;
-  films: string[];
 }

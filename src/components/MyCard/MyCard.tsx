@@ -23,7 +23,8 @@ class MyCard extends Component<CardProps, CardState> {
       return Object.entries(cardData).map((card) => {
         return (
           <div className={cl.cardRow}>
-            <span>{card[0]}</span> <span>{card[1]}</span>
+            <span className={cl.cardRowName}>{card[0].split('_').join(' ')}</span>
+            <span className={cl.cardRowValue}>{card[1]}</span>
           </div>
         );
       });

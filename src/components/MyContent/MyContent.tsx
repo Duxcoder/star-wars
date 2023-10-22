@@ -18,7 +18,7 @@ class MyContent extends Component<ContentProps, ContentState> {
     this.setState({ data });
   }
   componentDidMount() {
-    this.getContent('Skywalker');
+    this.getContent('');
   }
   render() {
     return (
