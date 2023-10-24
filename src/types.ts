@@ -1,23 +1,18 @@
-import { ReactNode } from 'react';
+import { ReactNode, MouseEvent } from 'react';
 
-export interface HeaderProps {
-  logo: string;
-}
+export interface AppProps {}
 export interface ButtonProps {
   name: string;
   disabled: boolean;
   children: ReactNode;
+  callback: (event: MouseEvent<HTMLButtonElement>) => void;
 }
-
 export interface InputProps {
   placeholder: string;
   disabled: boolean;
   type: 'text' | 'search';
+  callback: (text: string) => void;
 }
-export interface ContentProps {
-  title: string;
-}
-
 interface CardCommonCategory {
   created: string;
   edited: string;
@@ -120,7 +115,8 @@ export type CardAllCategory =
   | CardSpeciesCategory
   | CardStarshipsCategory
   | CardVehiclesCategory;
-export interface ContentState {
+export interface AppState {
+  search: string;
   data: [] | CardAllCategory[];
   fetching: boolean;
 }
