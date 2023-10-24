@@ -4,11 +4,21 @@ import cl from './MyHeader.module.css';
 import MyButton from '../UI/MyButton/MyButton';
 import MyInput from '../UI/MyInput/MyInput';
 import { RiSearch2Line } from 'react-icons/ri';
+
 class MyHeader extends Component<HeaderProps> {
   constructor(props: HeaderProps) {
     super(props);
+    this.state = {
+      search: '',
+    };
+    this.setSearch = this.setSearch.bind(this);
   }
   private _containerClasses = [cl.container, 'container'];
+  setSearch(text: string) {
+    this.setState({
+      search: text.trim(),
+    });
+  }
   render() {
     return (
       <header className={cl.header}>
@@ -17,8 +27,8 @@ class MyHeader extends Component<HeaderProps> {
             <span className={cl.logoName}>{this.props.logo}</span>
           </a>
           <div className={cl.searchContainer}>
-            <MyInput type={'search'} placeholder={'Find anything...'} />
-            <MyButton name={'Search'}>
+            <MyInput type={'search'} placeholder={'Find anything...'} callback={this.setSearch} />
+            <MyButton name={'Search'} callback={() => console.log(this.state.search)}>
               <RiSearch2Line />
             </MyButton>
           </div>

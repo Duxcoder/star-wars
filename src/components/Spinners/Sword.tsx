@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import cl from './Sword.module.css';
 import hilt from '../../assets/images/hilt.svg';
+
 class Sword extends Component {
   render() {
     return (

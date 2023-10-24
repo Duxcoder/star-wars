@@ -4,6 +4,7 @@ import { ContentProps, ContentState } from '../../types';
 import ApiService from '../API/ApiService';
 import MyCardList from '../MyCardList/MyCardList';
 import Sword from '../Spinners/Sword';
+
 class MyContent extends Component<ContentProps, ContentState> {
   constructor(props: ContentProps) {
     super(props);
@@ -16,6 +17,7 @@ class MyContent extends Component<ContentProps, ContentState> {
     title: 'Star Wars',
   };
   private async getContent(searchText: string) {
+    this.setState({ fetching: false });
     const data = await ApiService.getSearchAllData(searchText);
     this.setState({ data, fetching: true });
   }

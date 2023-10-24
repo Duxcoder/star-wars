@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import { InputProps } from '../../../types';
 import cl from './MyInput.module.css';
+
 class MyInput extends Component<InputProps> {
   constructor(props: InputProps) {
     super(props);
@@ -9,6 +10,7 @@ class MyInput extends Component<InputProps> {
     type: 'text',
     placeholder: '',
     disabled: false,
+    callback: () => {},
   };
   render() {
     return (
@@ -17,6 +19,7 @@ class MyInput extends Component<InputProps> {
         type={this.props.type}
         className={cl.input}
         placeholder={this.props.placeholder}
+        onInput={(e) => this.props.callback(e.target.value)}
       ></input>
     );
   }
