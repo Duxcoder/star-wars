@@ -20,9 +20,9 @@ class App extends Component<AppProps, AppState> {
   }
   private _containerClasses = [cl.container, 'container'];
   private async getContent(searchText: string) {
-    this.setState({ fetching: false });
+    this.setState({ fetching: true });
     const data = await ApiService.getSearchAllData(searchText);
-    this.setState({ data, fetching: true });
+    this.setState({ data, fetching: false });
   }
   setSearch(text: string) {
     this.setState({
@@ -41,8 +41,17 @@ class App extends Component<AppProps, AppState> {
               <span className={cl.logoName}>{'Star Wars'}</span>
             </a>
             <div className={cl.searchContainer}>
-              <MyInput type={'search'} placeholder={'Find anything...'} callback={this.setSearch} />
-              <MyButton name={'Search'} callback={() => this.getContent(this.state.search)}>
+              <MyInput
+                disabled={this.state.fetching}
+                type={'search'}
+                placeholder={'Find anything...'}
+                callback={this.setSearch}
+              />
+              <MyButton
+                disabled={this.state.fetching}
+                name={'Search'}
+                callback={() => this.getContent(this.state.search)}
+              >
                 <RiSearch2Line />
               </MyButton>
             </div>
@@ -51,7 +60,7 @@ class App extends Component<AppProps, AppState> {
         <main className={cl.main}>
           <section className="container">
             <h1 className={cl.title}> {'Star Wars'} </h1>
-            {this.state.fetching ? <MyCardList cards={this.state.data} /> : <Sword />}
+            {this.state.fetching ? <Sword /> : <MyCardList cards={this.state.data} />}
           </section>
         </main>
       </>

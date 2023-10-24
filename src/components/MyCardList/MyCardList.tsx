@@ -13,9 +13,9 @@ class MyCardList extends Component<CardListProps> {
   render() {
     return (
       <div className={cl.cardList}>
-        {this.props.cards.map((card, i) => (
-          <MyCard key={i} data={card} />
-        ))}
+        {this.props.cards.length
+          ? this.props.cards.map((card, i) => <MyCard key={i} data={card} />)
+          : 'not found'}
       </div>
     );
   }
