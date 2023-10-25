@@ -8,6 +8,7 @@ export interface ButtonProps {
   callback: (event: MouseEvent<HTMLButtonElement>) => void;
 }
 export interface InputProps {
+  value: string;
   placeholder: string;
   disabled: boolean;
   type: 'text' | 'search';

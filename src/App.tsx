@@ -7,12 +7,13 @@ import Sword from './components/Spinners/Sword';
 import ApiService from './components/API/ApiService';
 import { RiSearch2Line } from 'react-icons/ri';
 import { AppProps, AppState } from './types';
+import { LocalStorage } from './settings';
 
 class App extends Component<AppProps, AppState> {
   constructor(props: AppProps) {
     super(props);
     this.state = {
-      search: '',
+      search: localStorage.getItem(LocalStorage.searchText) ?? '',
       data: [],
       fetching: false,
     };
@@ -21,6 +22,7 @@ class App extends Component<AppProps, AppState> {
   private _containerClasses = [cl.container, 'container'];
   private async getContent(searchText: string) {
     this.setState({ fetching: true });
+    localStorage.setItem(LocalStorage.searchText, searchText);
     const data = await ApiService.getSearchAllData(searchText);
     this.setState({ data, fetching: false });
   }
@@ -42,6 +44,7 @@ class App extends Component<AppProps, AppState> {
             </a>
             <div className={cl.searchContainer}>
               <MyInput
+                value={this.state.search}
                 disabled={this.state.fetching}
                 type={'search'}
                 placeholder={'Find anything...'}

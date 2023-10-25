@@ -7,6 +7,7 @@ class MyInput extends Component<InputProps> {
     super(props);
   }
   static defaultProps = {
+    value: '',
     type: 'text',
     placeholder: '',
     disabled: false,
@@ -21,6 +22,7 @@ class MyInput extends Component<InputProps> {
   render() {
     return (
       <input
+        value={this.props.value}
         disabled={this.props.disabled}
         type={this.props.type}
         className={cl.input}

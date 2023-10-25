@@ -6,6 +6,9 @@ export enum Categories {
   Species = 'species',
   Starships = 'starships',
 }
+export enum LocalStorage {
+  searchText = '$searchText',
+}
 export const API_SERVICE_URL = 'https://swapi.dev/api/';
 export const CATEGORIES = [
   Categories.People,
