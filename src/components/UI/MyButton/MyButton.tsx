@@ -1,7 +1,6 @@
 import { Component } from 'react';
 import { ButtonProps } from '../../../types';
 import cl from './MyButton.module.css';
-
 class MyButton extends Component<ButtonProps> {
   constructor(props: ButtonProps) {
     super(props);

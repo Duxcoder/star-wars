@@ -1,72 +1,13 @@
 import { Component } from 'react';
-import cl from './App.module.css';
-import MyInput from './components/UI/MyInput/MyInput';
-import MyButton from './components/UI/MyButton/MyButton';
-import MyCardList from './components/MyCardList/MyCardList';
-import Sword from './components/Spinners/Sword';
-import ApiService from './components/API/ApiService';
-import { RiSearch2Line } from 'react-icons/ri';
-import { AppProps, AppState } from './types';
-import { LocalStorage } from './settings';
+import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
+import MyContent from './components/MyContent/MyContent';
 
-class App extends Component<AppProps, AppState> {
-  constructor(props: AppProps) {
-    super(props);
-    this.state = {
-      search: localStorage.getItem(LocalStorage.searchText) ?? '',
-      data: [],
-      fetching: false,
-    };
-    this.setSearch = this.setSearch.bind(this);
-  }
-  private _containerClasses = [cl.container, 'container'];
-  private async getContent(searchText: string) {
-    this.setState({ fetching: true });
-    localStorage.setItem(LocalStorage.searchText, searchText);
-    const data = await ApiService.getSearchAllData(searchText);
-    this.setState({ data, fetching: false });
-  }
-  setSearch(text: string) {
-    this.setState({
-      search: text.trim(),
-    });
-  }
-  componentDidMount() {
-    this.getContent(this.state.search);
-  }
+class App extends Component {
   render() {
     return (
-      <>
-        <header className={cl.header}>
-          <div className={this._containerClasses.join(' ')}>
-            <a href="/" className={cl.logo}>
-              <span className={cl.logoName}>{'Star Wars'}</span>
-            </a>
-            <div className={cl.searchContainer}>
-              <MyInput
-                value={this.state.search}
-                disabled={this.state.fetching}
-                type={'search'}
-                placeholder={'Find anything...'}
-                callback={this.setSearch}
-              />
-              <MyButton
-                disabled={this.state.fetching}
-                name={'Search'}
-                callback={() => this.getContent(this.state.search)}
-              >
-                <RiSearch2Line />
-              </MyButton>
-            </div>
-          </div>
-        </header>
-        <main className={cl.main}>
-          <section className="container">
-            <h1 className={cl.title}> {'Star Wars'} </h1>
-            {this.state.fetching ? <Sword /> : <MyCardList cards={this.state.data} />}
-          </section>
-        </main>
-      </>
+      <ErrorBoundary>
+        <MyContent />
+      </ErrorBoundary>
     );
   }
 }

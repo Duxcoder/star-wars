@@ -6,8 +6,12 @@ export default class ApiService {
     try {
       const response = await axios.get(API_SERVICE_URL + query);
       return response.data.count ? response.data.results : [];
-    } catch (error) {
-      console.error(error);
+    } catch (e) {
+      if (typeof e === 'string') {
+        throw new Error(e.toUpperCase());
+      } else if (e instanceof Error) {
+        throw new Error(e.message);
+      }
     }
   }
   static async getSearchData(category: string, text: string) {

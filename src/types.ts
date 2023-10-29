@@ -1,6 +1,9 @@
-import { ReactNode, MouseEvent } from 'react';
+import { ReactNode, MouseEvent, ErrorInfo } from 'react';
 
-export interface AppProps {}
+export type EmptyProps = Record<string, never>;
+export interface ChildProps {
+  children: ReactNode;
+}
 export interface ButtonProps {
   name: string;
   disabled: boolean;
@@ -116,10 +119,15 @@ export type CardAllCategory =
   | CardSpeciesCategory
   | CardStarshipsCategory
   | CardVehiclesCategory;
-export interface AppState {
+export interface ContentState {
   search: string;
   data: [] | CardAllCategory[];
   fetching: boolean;
+  error: string;
+}
+export interface ErrorBoundaryState {
+  error: Error | null;
+  errorInfo: ErrorInfo | null;
 }
 export interface CardListProps {
   cards: [] | CardAllCategory[];
