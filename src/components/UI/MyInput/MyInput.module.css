@@ -1,0 +1,41 @@
+.input {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.6em 1em;
+  font-size: 1em;
+  color: #858585;
+  background: #292929;
+  border-radius: 1em;
+  width: 14vw;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  border: 1px solid #3b3b3b;
+  transition: all 0.3s;
+}
+.input::placeholder {
+  color: #858585;
+  transition: 0.3s;
+}
+.input:not(:disabled):hover::placeholder {
+  color: #a9a9a9;
+}
+.input:not(:disabled):hover {
+  background: #3b3b3b;
+  cursor: pointer;
+}
+.input:not(:disabled):focus {
+  background: #fff;
+  outline: none;
+  width: 30vw;
+  cursor: auto;
+  color: #000000;
+}
+.input[type='search']::-webkit-search-cancel-button {
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.input:disabled {
+  cursor: progress;
+  opacity: 0.5;
+}

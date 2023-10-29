@@ -1,0 +1,50 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 100px;
+  background-color: #000;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.searchContainer {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  align-content: center;
+  gap: 1em;
+}
+
+.logoName {
+  width: min-content;
+  padding-bottom: 0.2em;
+  font-size: 2em;
+  line-height: 0.8em;
+  text-transform: uppercase;
+  font-family: 'Star Jedi', serif;
+  font-weight: bolder;
+  color: #fff;
+}
+
+.main {
+  display: flex;
+  height: calc(100vh - 100px - 6em);
+  margin: 2em 0 3em 0;
+}
+
+.title {
+  display: flex;
+  color: #fff;
+  font-size: 2em;
+  margin: 0 0 1em 0;
+}
