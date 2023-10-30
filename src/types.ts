@@ -1,6 +1,4 @@
 import { ReactNode, MouseEvent, ErrorInfo } from 'react';
-
-export type EmptyProps = Record<string, never>;
 export interface ChildProps {
   children: ReactNode;
 }
@@ -119,12 +117,6 @@ export type CardAllCategory =
   | CardSpeciesCategory
   | CardStarshipsCategory
   | CardVehiclesCategory;
-export interface ContentState {
-  search: string;
-  data: [] | CardAllCategory[];
-  fetching: boolean;
-  error: string;
-}
 export interface ErrorBoundaryState {
   error: Error | null;
   errorInfo: ErrorInfo | null;
@@ -181,4 +173,14 @@ export interface CardPlanet {
   climate: string;
   population: string;
   terrain: string;
+}
+export type GetContentType = (searchText: string) => Promise<void>;
+export interface HeaderProps {
+  getContent: GetContentType;
+  fetching: boolean;
+  setError: (err: string) => void;
+}
+export interface MainProps {
+  cardsData: [] | CardAllCategory[];
+  fetching: boolean;
 }

@@ -16,7 +16,7 @@ class MyInput extends Component<InputProps> {
   returnValue = (event: FormEvent<HTMLInputElement>) => {
     const target = event.target;
     if (target instanceof HTMLInputElement) {
-      this.props.callback(target.value);
+      this.props.callback(target.value.trim());
     }
   };
   render() {
