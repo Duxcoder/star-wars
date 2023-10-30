@@ -124,10 +124,6 @@ export interface ErrorBoundaryState {
 export interface CardListProps {
   cards: [] | CardAllCategory[];
 }
-
-export interface CardState {
-  data: CardAll | null;
-}
 export interface CardProps {
   data: CardAllCategory;
 }
