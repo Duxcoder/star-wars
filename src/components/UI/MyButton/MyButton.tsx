@@ -11,3 +11,9 @@ const MyButton = ({ name, disabled, callback, children }: ButtonProps) => {
 };
 
 export default MyButton;
+
+MyButton.defaultProps = {
+  name: '',
+  disabled: false,
+  callback: () => {},
+};
