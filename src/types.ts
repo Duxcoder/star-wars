@@ -15,6 +15,13 @@ export interface InputProps {
   type: 'text' | 'search';
   callback: (text: string) => void;
 }
+export interface SelectProps {
+  value: string;
+  disabled: boolean;
+  options: string[];
+  onChange: (value: string) => void;
+  label: string;
+}
 interface CardCommonCategory {
   created: string;
   edited: string;
