@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import ApiService from '../API/ApiService';
+import { getSearchAllData } from '../API/ApiService';
 import { LocalStorage } from '../../settings';
 import MyHeader from '../MyHeader/MyHeader';
 import MyMain from '../MyMain/MyMain';
@@ -12,7 +12,7 @@ const MyContent = () => {
   const getContent = async (searchText: string) => {
     setFetching(true);
     localStorage.setItem(LocalStorage.searchText, searchText);
-    const data = await ApiService.getSearchAllData(searchText);
+    const data = await getSearchAllData(searchText);
     setFetching(false);
     setDataCards(data);
   };
