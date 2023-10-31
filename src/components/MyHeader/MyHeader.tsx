@@ -12,7 +12,7 @@ const MyHeader = ({ setError, getContent, fetching }: HeaderProps) => {
   return (
     <header className={cl.header}>
       <div className={[cl.container, 'container'].join(' ')}>
-        <a href="/" className={cl.logo}>
+        <a href="./" className={cl.logo}>
           <span className={cl.logoName}>{'Star Wars'}</span>
         </a>
         <div className={cl.searchContainer}>
