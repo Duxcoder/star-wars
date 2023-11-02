@@ -1,4 +1,5 @@
-import { ReactNode, MouseEvent, ErrorInfo } from 'react';
+import { Dispatch, ReactNode, MouseEvent, ErrorInfo, SetStateAction } from 'react';
+import { Categories } from './settings';
 export interface ChildProps {
   children: ReactNode;
 }
@@ -16,10 +17,10 @@ export interface InputProps {
   callback: (text: string) => void;
 }
 export interface SelectProps {
-  value: string;
+  value: string | number;
   disabled: boolean;
-  options: string[];
-  onChange: (value: string) => void;
+  options: (number | Categories)[];
+  onChange: (value: number | Categories) => void;
   label: string;
 }
 interface CardCommonCategory {
@@ -186,4 +187,21 @@ export interface HeaderProps {
 export interface MainProps {
   cardsData: [] | CardAllCategory[];
   fetching: boolean;
+}
+export interface CardsPages {
+  data: CardAllCategory[];
+  allCount: number;
+}
+
+export interface RequestOptionsData {
+  allCount: number;
+  cardsPerPage: number;
+  allPages: number;
+  currentPage: number;
+  category: Categories;
+}
+
+export interface RequestOptionsContextType {
+  requestOptionsData: RequestOptionsData | null;
+  setRequestOptionsData: Dispatch<SetStateAction<RequestOptionsData | null>> | null;
 }

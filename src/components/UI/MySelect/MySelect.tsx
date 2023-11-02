@@ -1,8 +1,8 @@
 import { SelectProps } from '../../../types';
 import cl from './MySelect.module.css';
 import { useEffect, useRef, useState } from 'react';
-import { Categories } from '../../../settings';
 import { RiArrowDownSLine, RiArrowUpSLine } from 'react-icons/ri';
+import { Categories } from '../../../settings';
 
 const MySelect = ({ value, options, onChange, label, disabled }: SelectProps) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -23,7 +23,7 @@ const MySelect = ({ value, options, onChange, label, disabled }: SelectProps) =>
     if (disabled) setIsOpen(false);
   }, [disabled]);
 
-  const onOptionClicked = (val: string) => () => {
+  const onOptionClicked = (val: number | Categories) => () => {
     onChange(val);
     setIsOpen(false);
   };
@@ -57,12 +57,5 @@ export default MySelect;
 MySelect.defaultProps = {
   label: '',
   disabled: false,
-  options: [
-    Categories.Planets,
-    Categories.Species,
-    Categories.Vehicles,
-    Categories.Starships,
-    Categories.Films,
-    Categories.People,
-  ],
+  options: ['option one', 'option two'],
 };

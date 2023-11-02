@@ -9,7 +9,8 @@ export enum Categories {
 export enum LocalStorage {
   searchText = '$searchText',
 }
-export const API_SERVICE_URL = 'https://swapi.dev/api/';
+export const API_SERVICE_URL = 'https://swapi.py4e.com/api/';
+export const initialCategory = Categories.People;
 export const CATEGORIES = [
   Categories.People,
   Categories.Vehicles,
