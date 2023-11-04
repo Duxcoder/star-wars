@@ -2,6 +2,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  min-width: 3.5em;
   gap: 0.2em;
   padding: 0.6em 1em;
   font-size: 1em;
@@ -20,4 +21,24 @@
 .button:disabled {
   cursor: progress;
   opacity: 0.5;
+}
+.button.active {
+  background: #292929;
+  color: #b4b4b4;
+  border: 1px solid #b4b4b4;
+}
+.button.active:not(:disabled):hover {
+  background: #b4b4b4;
+  color: #292929;
+}
+.button.active:not(:disabled):active {
+  background: #9c9c9c;
+  border: 1px solid #9c9c9c;
+}
+.button.circle {
+  padding: 0;
+  width: 2.6em;
+  min-width: auto;
+  height: 2.6em;
+  border-radius: 50%;
 }
