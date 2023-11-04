@@ -19,3 +19,11 @@ export const CATEGORIES = [
   Categories.Species,
   Categories.Starships,
 ];
+
+export const defaultRequestOptionsData = {
+  allCount: 0,
+  allPages: 0,
+  currentPage: 1,
+  cardsPerPage: 10,
+  category: initialCategory,
+};
