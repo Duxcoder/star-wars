@@ -4,9 +4,11 @@ export interface ChildProps {
   children: ReactNode;
 }
 export interface ButtonProps {
-  name: string;
+  name: string | number;
   disabled: boolean;
-  children: ReactNode;
+  children?: ReactNode;
+  active?: boolean;
+  circle?: boolean;
   callback: (event: MouseEvent<HTMLButtonElement>) => void;
 }
 export interface InputProps {
@@ -89,7 +91,6 @@ export interface CardVehiclesCategory extends CardCommonCategory {
   films: string[];
   vehicle_class: string;
 }
-
 export interface CardSpeciesCategory extends CardCommonCategory {
   average_height: string;
   average_lifespan: string;
@@ -104,7 +105,6 @@ export interface CardSpeciesCategory extends CardCommonCategory {
   films: string[];
   skin_colors: string;
 }
-
 export interface CardPlanetsCategory extends CardCommonCategory {
   climate: string;
   diameter: string;
@@ -178,21 +178,22 @@ export interface CardPlanet {
   population: string;
   terrain: string;
 }
-export type GetContentType = (searchText: string) => Promise<void>;
+export type GetContentType = (searchText: string, newSearch: boolean) => Promise<void>;
 export interface HeaderProps {
   getContent: GetContentType;
   fetching: boolean;
   setError: (err: string) => void;
 }
 export interface MainProps {
+  title: Categories | string;
   cardsData: [] | CardAllCategory[];
   fetching: boolean;
+  pages: number;
 }
 export interface CardsPages {
   data: CardAllCategory[];
   allCount: number;
 }
-
 export interface RequestOptionsData {
   allCount: number;
   cardsPerPage: number;
@@ -200,8 +201,10 @@ export interface RequestOptionsData {
   currentPage: number;
   category: Categories;
 }
-
 export interface RequestOptionsContextType {
-  requestOptionsData: RequestOptionsData | null;
-  setRequestOptionsData: Dispatch<SetStateAction<RequestOptionsData | null>> | null;
+  requestOptionsData: RequestOptionsData;
+  setRequestOptionsData: Dispatch<SetStateAction<RequestOptionsData>> | null;
+}
+export interface PaginationProps {
+  pages: number;
 }

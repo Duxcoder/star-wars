@@ -23,7 +23,11 @@ const MyHeader = ({ setError, getContent, fetching }: HeaderProps) => {
             placeholder={'Find anything...'}
             callback={setSearchText}
           />
-          <MyButton disabled={fetching} name={'Search'} callback={() => getContent(searchText)}>
+          <MyButton
+            disabled={fetching}
+            name={'Search'}
+            callback={() => getContent(searchText, true)}
+          >
             <RiSearch2Line />
           </MyButton>
           <MyButton name={'Error'} callback={() => setError('Oops! This is fatal error')}>
