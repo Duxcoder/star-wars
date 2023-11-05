@@ -1,14 +1,23 @@
-import { useState } from 'react';
+import { useContext } from 'react';
 import cl from './MyHeader.module.css';
 import MyInput from '../UI/MyInput/MyInput';
 import MyButton from '../UI/MyButton/MyButton';
 import { RiSearch2Line, RiErrorWarningLine } from 'react-icons/ri';
-import { LocalStorage } from '../../settings';
 import { HeaderProps } from '../../types';
+import { RequestOptionsContext } from '../Context';
+import { useNavigate } from 'react-router-dom';
+const MyHeader = ({ setError, fetching }: HeaderProps) => {
+  const requestOptionsContext = useContext(RequestOptionsContext);
+  const { requestOptionsData, setRequestOptionsData } = requestOptionsContext;
+  const navigate = useNavigate();
 
-const MyHeader = ({ setError, getContent, fetching }: HeaderProps) => {
-  const [searchText, setSearchText] = useState(localStorage.getItem(LocalStorage.searchText) ?? '');
-
+  const setSearchText = (search: string) => {
+    if (setRequestOptionsData) setRequestOptionsData({ ...requestOptionsData, search });
+  };
+  const startSearch = () => {
+    const { category, search } = requestOptionsData;
+    navigate(`/${category}/10/1${search ? '/' + search : ''}`);
+  };
   return (
     <header className={cl.header}>
       <div className={[cl.container, 'container'].join(' ')}>
@@ -17,17 +26,13 @@ const MyHeader = ({ setError, getContent, fetching }: HeaderProps) => {
         </a>
         <div className={cl.searchContainer}>
           <MyInput
-            value={searchText}
+            value={requestOptionsData.search}
             disabled={fetching}
             type={'search'}
             placeholder={'Find anything...'}
             callback={setSearchText}
           />
-          <MyButton
-            disabled={fetching}
-            name={'Search'}
-            callback={() => getContent(searchText, true)}
-          >
+          <MyButton disabled={fetching} name={'Search'} callback={startSearch}>
             <RiSearch2Line />
           </MyButton>
           <MyButton name={'Error'} callback={() => setError('Oops! This is fatal error')}>

@@ -131,9 +131,11 @@ export interface ErrorBoundaryState {
 }
 export interface CardListProps {
   cards: [] | CardAllCategory[];
+  setSelectedCard: Dispatch<SetStateAction<CardAllCategory | null>>;
 }
 export interface CardProps {
   data: CardAllCategory;
+  callback?: (data: CardAllCategory) => void;
 }
 export type CardAll = CardPeople | CardVehicle | CardFilm | CardStarship | CardSpecies | CardPlanet;
 export interface CardPeople {
@@ -178,9 +180,8 @@ export interface CardPlanet {
   population: string;
   terrain: string;
 }
-export type GetContentType = (searchText: string, newSearch: boolean) => Promise<void>;
+export type GetContentType = (newSearch: boolean) => Promise<void>;
 export interface HeaderProps {
-  getContent: GetContentType;
   fetching: boolean;
   setError: (err: string) => void;
 }
@@ -195,11 +196,12 @@ export interface CardsPages {
   allCount: number;
 }
 export interface RequestOptionsData {
+  search: string;
   allCount: number;
   cardsPerPage: number;
   allPages: number;
   currentPage: number;
-  category: Categories;
+  category: Categories | string;
 }
 export interface RequestOptionsContextType {
   requestOptionsData: RequestOptionsData;
@@ -207,4 +209,13 @@ export interface RequestOptionsContextType {
 }
 export interface PaginationProps {
   pages: number;
+}
+export interface ParamsType {
+  category?: string;
+  search?: string;
+  cardsPerPage?: string;
+  page?: string;
+}
+export interface LoaderContentType {
+  params: ParamsType;
 }

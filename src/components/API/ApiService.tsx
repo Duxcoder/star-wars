@@ -17,16 +17,21 @@ export async function getData(query: string) {
   }
 }
 
-export async function getSearchData(category: Categories, text: string, page: number = 1) {
+export async function getSearchData(category: Categories | string, text: string, page: number = 1) {
   return await getData(`${category}/?search=${text}&page=${page}`);
 }
 
-export async function getCardsPages(
-  category: Categories,
-  text: string,
-  pages: number = 1,
-  startPage: number = 1
-) {
+export async function getCardsPages({
+  category,
+  text,
+  pages = 1,
+  startPage = 1,
+}: {
+  category: Categories | string;
+  text: string;
+  pages: number;
+  startPage: number;
+}) {
   const requests = fillArray(pages, 0).map((num, i) =>
     getSearchData(category, text, startPage + num + i)
   );

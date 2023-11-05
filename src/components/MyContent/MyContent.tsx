@@ -1,58 +1,69 @@
 import { useEffect, useState } from 'react';
 import { getCardsPages } from '../API/ApiService';
-import { defaultRequestOptionsData, LocalStorage } from '../../settings';
+import { defaultRequestOptionsData } from '../../settings';
 import MyHeader from '../MyHeader/MyHeader';
 import MyMain from '../MyMain/MyMain';
-import { CardAllCategory, RequestOptionsData } from '../../types';
+import {
+  CardAllCategory,
+  CardsPages,
+  LoaderContentType,
+  ParamsType,
+  RequestOptionsData,
+} from '../../types';
 import { RequestOptionsContext } from '../Context';
+import { useLoaderData } from 'react-router-dom';
+import { checkNumber } from '../../utils/utils';
 
+// eslint-disable-next-line react-refresh/only-export-components
+export async function loader({ params }: LoaderContentType) {
+  const { category, search, cardsPerPage, currentPage } = defaultRequestOptionsData;
+  const options = {
+    category: params.category ?? category,
+    text: params.search ?? search,
+    pages: checkNumber(params.cardsPerPage, cardsPerPage) / 10,
+    startPage: checkNumber(params.page, currentPage),
+  };
+  const cardsPages = await getCardsPages(options);
+  return { cardsPages, params };
+}
 const MyContent = () => {
   const [dataCards, setDataCards] = useState<CardAllCategory[]>([]);
   const [requestOptionsData, setRequestOptionsData] =
     useState<RequestOptionsData>(defaultRequestOptionsData);
   const [fetching, setFetching] = useState(false);
   const [error, setError] = useState('');
-  const { cardsPerPage, currentPage, category, allPages, allCount } = requestOptionsData;
+  const { cardsPerPage, category, allPages, allCount } = requestOptionsData;
+  const cardsPagesData = useLoaderData() as { cardsPages: CardsPages; params: ParamsType };
 
-  const updateRequestOptionsData = (
-    allCount: number,
-    cardsPerPage: number,
-    currentPage: number
-  ) => {
-    setRequestOptionsData({
-      ...requestOptionsData,
-      allPages: Math.ceil(allCount / cardsPerPage),
-      allCount,
-      cardsPerPage,
-      currentPage,
-    });
-  };
+  const getContent = async () => {
+    const { cardsPages, params } = cardsPagesData;
 
-  const getContent = async (searchText: string, newSearch = false) => {
     setFetching(true);
-    localStorage.setItem(LocalStorage.searchText, searchText);
-    const updateCardsPerPage = newSearch ? 10 : cardsPerPage;
-    const updateCurrentPage = newSearch ? 1 : currentPage;
-    const cardsPages = await getCardsPages(
-      category,
-      searchText,
-      updateCardsPerPage / 10,
-      updateCurrentPage
-    );
+    const updateCardsPerPage = params.cardsPerPage || requestOptionsData.cardsPerPage;
+    const updateCurrentPage = params.page || requestOptionsData.currentPage;
     setFetching(false);
     setDataCards(cardsPages.data);
-    updateRequestOptionsData(cardsPages.allCount, updateCardsPerPage, updateCurrentPage);
+
+    const updateOptions = {
+      allPages: Math.ceil(+cardsPages.allCount / +updateCardsPerPage),
+      allCount: +cardsPages.allCount,
+      cardsPerPage: checkNumber(params.cardsPerPage, +cardsPerPage),
+      currentPage: +updateCurrentPage,
+      search: params.search || '',
+      category: params.category || requestOptionsData.category,
+    };
+    setRequestOptionsData({ ...updateOptions });
   };
 
   useEffect(() => {
-    getContent(localStorage.getItem(LocalStorage.searchText) ?? '').catch((err) => setError(err));
+    getContent().catch((err) => setError(err));
     if (error) throw new Error(error);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [error, cardsPerPage, category, currentPage]);
+  }, [error, cardsPagesData]);
 
   return (
     <RequestOptionsContext.Provider value={{ requestOptionsData, setRequestOptionsData }}>
-      <MyHeader setError={setError} getContent={getContent} fetching={fetching} />
+      <MyHeader setError={setError} fetching={fetching} />
       <MyMain
         title={`${category} (${allCount})`}
         cardsData={dataCards}

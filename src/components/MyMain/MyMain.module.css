@@ -17,3 +17,19 @@
   margin: 0;
   text-transform: capitalize;
 }
+
+.cardContent {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: calc(100% - 80px);
+  gap: 2em;
+}
+
+.sideList {
+  width: 100%;
+}
+
+.sideCard {
+  min-width: 40%;
+}

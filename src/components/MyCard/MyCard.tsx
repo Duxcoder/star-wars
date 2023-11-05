@@ -3,7 +3,7 @@ import { CardProps } from '../../types';
 import getCard from './identifyCardCategory';
 import { useEffect, useState } from 'react';
 
-const MyCard = ({ data }: CardProps) => {
+const MyCard = ({ data, callback }: CardProps) => {
   const [card, setCard] = useState<[string, string][]>([]);
 
   useEffect(() => {
@@ -12,7 +12,7 @@ const MyCard = ({ data }: CardProps) => {
   }, [data]);
 
   return (
-    <div className={cl.card}>
+    <div className={cl.card} onClick={() => callback && callback(data)}>
       {card.map(([name, value], i) => {
         return (
           <div className={cl.cardRow} key={i}>

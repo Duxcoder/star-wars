@@ -3,8 +3,11 @@ import { CardListProps } from '../../types';
 import MyCard from '../MyCard/MyCard';
 import { RiFileExcelLine } from 'react-icons/ri';
 
-const MyCardList = ({ cards }: CardListProps) => {
-  const renderCards = () => cards.map((card, i) => <MyCard key={i} data={card} />);
+const MyCardList = ({ cards, setSelectedCard }: CardListProps) => {
+  const renderCards = () =>
+    cards.map((card, i) => (
+      <MyCard callback={(data) => setSelectedCard(data)} key={i} data={card} />
+    ));
   const renderNotFound = () => {
     return (
       <span className={cl.noResult}>

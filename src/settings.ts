@@ -19,8 +19,12 @@ export const CATEGORIES = [
   Categories.Species,
   Categories.Starships,
 ];
-
+export enum RouteLinks {
+  home = '/',
+  notFound = '*',
+}
 export const defaultRequestOptionsData = {
+  search: localStorage.getItem(LocalStorage.searchText) ?? '',
   allCount: 0,
   allPages: 0,
   currentPage: 1,
