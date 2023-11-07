@@ -2,11 +2,10 @@ module.exports = {
   root: true,
   env: { browser: true, es6: true, jest: true, node: true },
   extends: [
-    'eslint:recommended',
-    'plugin:react/recommended',
-    'plugin:@typescript-eslint/recommended',
-    'plugin:react-hooks/recommended',
-    'prettier',
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react-hooks/recommended",
+    "prettier"
   ],
   ignorePatterns: ['dist', '.eslintrc.cjs'],
   parser: '@typescript-eslint/parser',
@@ -17,7 +16,7 @@ module.exports = {
     ecmaVersion: 'latest',
     sourceType: 'module',
   },
-  plugins: ['react-refresh', '@typescript-eslint', 'react', 'prettier', 'react-hooks'],
+  plugins: ['react-refresh', '@typescript-eslint', 'react', 'react-hooks'],
   rules: {
     'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
     'react-hooks/rules-of-hooks': 'error',
@@ -26,7 +25,6 @@ module.exports = {
     'react/prop-types': 'off',
     'react/display-name': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',
-    'prettier/prettier': ['error', { endOfLine: 'auto' }],
     '@typescript-eslint/interface-name-prefix': 'off',
     '@typescript-eslint/ban-ts-comment': 'error',
     '@typescript-eslint/no-non-null-assertion': 'off',
