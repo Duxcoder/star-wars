@@ -1,17 +1,24 @@
 import { ButtonProps } from '../../../types';
 import cl from './MyButton.module.css';
-
+import classNames from 'classnames/bind';
 const MyButton = ({
   name,
   disabled,
   active,
   callback,
   circle = false,
+  close = false,
   children = '',
 }: ButtonProps) => {
-  const getClasses = () => `${cl.button} ${active ? cl.active : ''} ${circle ? cl.circle : ''}`;
+  const cx = classNames.bind(cl);
+  const className = cx({
+    button: true,
+    active,
+    circle,
+    close,
+  });
   return (
-    <button disabled={disabled} value={name} className={getClasses()} onClick={callback}>
+    <button disabled={disabled} value={name} className={className} onClick={callback}>
       {children}
       {name}
     </button>

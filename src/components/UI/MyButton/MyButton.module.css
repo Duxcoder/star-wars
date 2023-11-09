@@ -40,5 +40,11 @@
   width: 2.6em;
   min-width: auto;
   height: 2.6em;
+  min-height: 2.6em;
   border-radius: 50%;
+}
+.button.close {
+  position: absolute;
+  right: calc(2.6em / 2);
+  top: calc(2.6em / 2);
 }
