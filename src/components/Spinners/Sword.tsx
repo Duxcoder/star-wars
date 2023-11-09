@@ -1,9 +1,14 @@
 import cl from './Sword.module.css';
 import hilt from '../../assets/images/hilt.svg';
-
-const Sword = () => {
+import classNames from 'classnames/bind';
+const Sword = ({ red }: { red?: boolean }) => {
+  const cx = classNames.bind(cl);
+  const className = cx({
+    spinner: true,
+    red,
+  });
   return (
-    <div className={cl.spinner}>
+    <div className={className}>
       <div className={cl.sword}>
         <img src={hilt} alt="Sword loading" className={cl.hilt}></img>
         <div className={cl.blade}>
