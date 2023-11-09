@@ -7,7 +7,7 @@ export async function getData(query: string) {
   try {
     const response = await axios.get(API_SERVICE_URL + query);
     const { count, results } = response.data;
-    return count ? { data: results, allCount: count } : null;
+    return count ? { data: results, allCount: count } : response.data;
   } catch (e) {
     if (typeof e === 'string') {
       throw new Error(e.toUpperCase());

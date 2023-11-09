@@ -3,13 +3,14 @@ import cl from './PageControlPanel.module.css';
 import MySelect from '../UI/MySelect/MySelect';
 import { Categories, CATEGORIES } from '../../settings';
 import { RequestOptionsContext } from '../Context';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const PageControlPanel = ({ fetching }: { fetching: boolean }) => {
   const requestOptionsContext = useContext(RequestOptionsContext);
   const { requestOptionsData, setRequestOptionsData } = requestOptionsContext;
-  const { category, cardsPerPage, search } = requestOptionsData;
+  const { category, cardsPerPage } = requestOptionsData;
   const navigate = useNavigate();
+  const pathParams = useParams();
 
   const updateCategory = (value: number | Categories) => {
     if (setRequestOptionsData && typeof value !== 'number') {
@@ -19,7 +20,7 @@ const PageControlPanel = ({ fetching }: { fetching: boolean }) => {
         cardsPerPage: 10,
         currentPage: 1,
       });
-      navigate(`/${value}/10/1${search ? '/' + search : ''}`);
+      navigate(`/${value}/10/1`);
     }
   };
 
@@ -30,7 +31,8 @@ const PageControlPanel = ({ fetching }: { fetching: boolean }) => {
         cardsPerPage: value,
         currentPage: 1,
       });
-      navigate(`/${category}/${value}/1${search ? '/' + search : ''}`);
+      const { category, id } = pathParams;
+      navigate(`/${category}/${value}/1${id ? `/details/${id}` : ''}`);
     }
   };
 

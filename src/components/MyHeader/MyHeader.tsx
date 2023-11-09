@@ -5,23 +5,25 @@ import MyButton from '../UI/MyButton/MyButton';
 import { RiSearch2Line, RiErrorWarningLine } from 'react-icons/ri';
 import { HeaderProps } from '../../types';
 import { RequestOptionsContext } from '../Context';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+
 const MyHeader = ({ setError, fetching }: HeaderProps) => {
   const requestOptionsContext = useContext(RequestOptionsContext);
   const { requestOptionsData, setRequestOptionsData } = requestOptionsContext;
   const navigate = useNavigate();
+  const pathParams = useParams();
 
   const setSearchText = (search: string) => {
     if (setRequestOptionsData) setRequestOptionsData({ ...requestOptionsData, search });
   };
   const startSearch = () => {
-    const { category, search } = requestOptionsData;
-    navigate(`/${category}/10/1${search ? '/' + search : ''}`);
+    const { category, id } = pathParams;
+    navigate(`/${category}/10/1${id ? `/details/${id}` : ''}`);
   };
   return (
     <header className={cl.header}>
       <div className={[cl.container, 'container'].join(' ')}>
-        <a href="./" className={cl.logo}>
+        <a href="/" className={cl.logo}>
           <span className={cl.logoName}>{'Star Wars'}</span>
         </a>
         <div className={cl.searchContainer}>

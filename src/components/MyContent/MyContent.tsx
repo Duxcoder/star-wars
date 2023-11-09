@@ -11,7 +11,7 @@ import {
   RequestOptionsData,
 } from '../../types';
 import { RequestOptionsContext } from '../Context';
-import { useLoaderData } from 'react-router-dom';
+import { useLoaderData, useNavigation } from 'react-router-dom';
 import { checkNumber } from '../../utils/utils';
 
 // eslint-disable-next-line react-refresh/only-export-components
@@ -34,14 +34,12 @@ const MyContent = () => {
   const [error, setError] = useState('');
   const { cardsPerPage, category, allPages, allCount } = requestOptionsData;
   const cardsPagesData = useLoaderData() as { cardsPages: CardsPages; params: ParamsType };
+  const { state } = useNavigation();
 
   const getContent = async () => {
     const { cardsPages, params } = cardsPagesData;
-
-    setFetching(true);
     const updateCardsPerPage = params.cardsPerPage || requestOptionsData.cardsPerPage;
     const updateCurrentPage = params.page || requestOptionsData.currentPage;
-    setFetching(false);
     setDataCards(cardsPages.data);
 
     const updateOptions = {
@@ -55,6 +53,7 @@ const MyContent = () => {
     setRequestOptionsData({ ...updateOptions });
   };
 
+  useEffect(() => setFetching(state === 'loading'), [state]);
   useEffect(() => {
     getContent().catch((err) => setError(err));
     if (error) throw new Error(error);

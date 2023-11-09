@@ -10,12 +10,13 @@ import { PaginationProps } from '../../types';
 import { MouseEvent, useContext } from 'react';
 import { RequestOptionsContext } from '../Context';
 import { fillArray, limiter } from '../../utils/utils';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 const Pagination = ({ pages }: PaginationProps) => {
   const requestOptionsContext = useContext(RequestOptionsContext);
   const { requestOptionsData, setRequestOptionsData } = requestOptionsContext;
-  const { currentPage, allPages, category, cardsPerPage, search } = requestOptionsData;
+  const { currentPage, allPages } = requestOptionsData;
   const navigate = useNavigate();
+  const pathParams = useParams();
   const getPages = () => fillArray(pages, 1).map((page, i) => page + i);
   const selectPage = (e: MouseEvent<HTMLButtonElement>) => {
     if (e.target instanceof HTMLButtonElement) {
@@ -26,7 +27,8 @@ const Pagination = ({ pages }: PaginationProps) => {
   const setPage = (page: number) => {
     if (setRequestOptionsData) {
       setRequestOptionsData({ ...requestOptionsData, currentPage: page });
-      navigate(`/${category}/${cardsPerPage}/${page}${search ? '/' + search : ''}`);
+      const { category, cardsPerPage, id } = pathParams;
+      navigate(`/${category}/${cardsPerPage}/${page}${id ? `/details/${id}` : ''}`);
     }
   };
 
