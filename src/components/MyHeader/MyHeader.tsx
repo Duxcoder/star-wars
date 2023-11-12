@@ -6,22 +6,23 @@ import { RiSearch2Line, RiErrorWarningLine } from 'react-icons/ri';
 import { HeaderProps } from '../../types';
 import { RequestOptionsContext } from '../Context';
 import { useNavigate } from 'react-router-dom';
+
 const MyHeader = ({ setError, fetching }: HeaderProps) => {
   const requestOptionsContext = useContext(RequestOptionsContext);
   const { requestOptionsData, setRequestOptionsData } = requestOptionsContext;
   const navigate = useNavigate();
 
   const setSearchText = (search: string) => {
-    if (setRequestOptionsData) setRequestOptionsData({ ...requestOptionsData, search });
+    if (setRequestOptionsData) setRequestOptionsData((prev) => ({ ...prev, search }));
   };
-  const startSearch = () => {
+  const startSearch = async () => {
     const { category, search } = requestOptionsData;
-    navigate(`/${category}/10/1${search ? '/' + search : ''}`);
+    navigate(`/${category}/10/1${search ? `?search=${search}` : ''}`);
   };
   return (
     <header className={cl.header}>
       <div className={[cl.container, 'container'].join(' ')}>
-        <a href="./" className={cl.logo}>
+        <a href="/" className={cl.logo}>
           <span className={cl.logoName}>{'Star Wars'}</span>
         </a>
         <div className={cl.searchContainer}>

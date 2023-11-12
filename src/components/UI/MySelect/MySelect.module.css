@@ -37,6 +37,7 @@
   position: absolute;
   width: 100%;
   margin-top: 0.4em;
+  z-index: 1;
 }
 .list {
   padding: 0.8em 0;

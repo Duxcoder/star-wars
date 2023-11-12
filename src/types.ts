@@ -9,6 +9,7 @@ export interface ButtonProps {
   children?: ReactNode;
   active?: boolean;
   circle?: boolean;
+  close?: boolean;
   callback: (event: MouseEvent<HTMLButtonElement>) => void;
 }
 export interface InputProps {
@@ -131,11 +132,10 @@ export interface ErrorBoundaryState {
 }
 export interface CardListProps {
   cards: [] | CardAllCategory[];
-  setSelectedCard: Dispatch<SetStateAction<CardAllCategory | null>>;
 }
 export interface CardProps {
   data: CardAllCategory;
-  callback?: (data: CardAllCategory) => void;
+  onClick: () => void;
 }
 export type CardAll = CardPeople | CardVehicle | CardFilm | CardStarship | CardSpecies | CardPlanet;
 export interface CardPeople {
@@ -180,7 +180,6 @@ export interface CardPlanet {
   population: string;
   terrain: string;
 }
-export type GetContentType = (newSearch: boolean) => Promise<void>;
 export interface HeaderProps {
   fetching: boolean;
   setError: (err: string) => void;
@@ -202,6 +201,7 @@ export interface RequestOptionsData {
   allPages: number;
   currentPage: number;
   category: Categories | string;
+  cardsData: [] | CardAllCategory[];
 }
 export interface RequestOptionsContextType {
   requestOptionsData: RequestOptionsData;
@@ -215,7 +215,9 @@ export interface ParamsType {
   search?: string;
   cardsPerPage?: string;
   page?: string;
+  id?: string;
 }
 export interface LoaderContentType {
+  request: { url: string };
   params: ParamsType;
 }

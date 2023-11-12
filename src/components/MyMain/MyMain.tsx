@@ -1,15 +1,13 @@
 import cl from './MyMain.module.css';
 import MyCardList from '../MyCardList/MyCardList';
 import Sword from '../Spinners/Sword';
-import { CardAllCategory, MainProps } from '../../types';
+import { MainProps } from '../../types';
 import PageControlPanel from '../PageControlPanel/PageControlPanel';
 import Pagination from '../Pagination/Pagination';
-import MyCard from '../MyCard/MyCard';
-import { useState } from 'react';
+import { Outlet, useParams } from 'react-router-dom';
 
 const MyMain = ({ title, cardsData, fetching, pages }: MainProps) => {
-  const [selectedCard, setSelectedCard] = useState<CardAllCategory | null>(null);
-
+  const { id } = useParams();
   return (
     <main className={cl.main}>
       <section className="container">
@@ -18,18 +16,14 @@ const MyMain = ({ title, cardsData, fetching, pages }: MainProps) => {
           <PageControlPanel fetching={fetching} />
         </div>
         <div className={cl.cardContent}>
-          <div className={cl.sideList} onClick={() => selectedCard && setSelectedCard(null)}>
-            {fetching ? (
-              <Sword />
-            ) : (
-              <MyCardList setSelectedCard={setSelectedCard} cards={cardsData} />
-            )}
+          <div className={cl.sideList}>
+            {fetching ? <Sword /> : <MyCardList cards={cardsData} />}
           </div>
-          {selectedCard && (
+          {id ? (
             <div className={cl.sideCard}>
-              <MyCard data={selectedCard} />
+              <Outlet />
             </div>
-          )}
+          ) : null}
         </div>
         {!fetching && pages && <Pagination pages={pages} />}
       </section>

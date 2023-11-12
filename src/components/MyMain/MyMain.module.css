@@ -31,5 +31,6 @@
 }
 
 .sideCard {
-  min-width: 40%;
+  width: 50%;
+  min-width: 50%;
 }
