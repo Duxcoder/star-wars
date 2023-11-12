@@ -12,7 +12,7 @@ const Card = ({ data, onClick }: CardProps) => {
   }, [data]);
 
   return (
-    <div className={cl.card} onClick={onClick}>
+    <div className={cl.card} onClick={onClick} data-testid="card">
       {card.map(([name, value], i) => {
         return (
           <div className={cl.cardRow} key={i}>

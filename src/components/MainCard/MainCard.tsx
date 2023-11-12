@@ -18,7 +18,7 @@ const MainCard = () => {
   const card = Object.entries(cardData ?? [['error', 'Data is not found']]);
 
   return (
-    <div className={cl.card}>
+    <div className={cl.card} data-testid="main-card">
       <BaseButton circle close callback={() => navigate(`/${category}/${cardsPerPage}/${page}`)}>
         <RiCloseLine />
       </BaseButton>

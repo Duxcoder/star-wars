@@ -4,28 +4,11 @@ import { describe, it, expect } from 'vitest';
 import { MemoryRouter } from 'react-router-dom';
 import CardList from './CardList';
 import cl from '../Card/Card.module.css';
-const mockCard = {
-  birth_year: 'test',
-  eye_color: 'test',
-  films: ['test'],
-  gender: 'test',
-  hair_color: 'test',
-  height: 'test',
-  homeworld: 'test',
-  mass: 'test',
-  name: 'test',
-  skin_color: 'test',
-  species: ['test'],
-  starships: ['test'],
-  vehicles: ['test'],
-  created: 'test',
-  edited: 'test',
-  url: 'test',
-};
+import mockCardData from '../../mocks/mockCardData';
 
 describe('CardList Component', () => {
   it('renders cards correctly with one card', () => {
-    const mockCards = [mockCard];
+    const mockCards = [mockCardData];
 
     const { container } = render(
       <MemoryRouter>
@@ -37,7 +20,7 @@ describe('CardList Component', () => {
   });
 
   it('renders cards correctly with 30 card', () => {
-    const mockCards = new Array(30).fill(mockCard);
+    const mockCards = new Array(30).fill(mockCardData);
 
     const { container } = render(
       <MemoryRouter>

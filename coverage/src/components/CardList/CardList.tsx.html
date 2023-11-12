@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75.67% </span>
+                <span class="strong">81.08% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>28/37</span>
+                <span class='fraction'>30/37</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">66.66% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>6/6</span>
+                <span class='fraction'>6/9</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">83.33% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>3/6</span>
+                <span class='fraction'>5/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75.67% </span>
+                <span class="strong">81.08% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>28/37</span>
+                <span class='fraction'>30/37</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -107,24 +107,12 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -132,9 +120,21 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import cl from './CardList.module.css';
@@ -147,30 +147,30 @@ const CardList = ({ cards }: CardListProps) =&gt; {
   const [searchParams] = useSearchParams();
   const { category, cardsPerPage, page } = useParams();
   const navigate = useNavigate();
-  const getIdCard = <span class="fstat-no" title="function not covered" >(card: CardAllCategory) =&gt; card.url.split('/').at(-2);</span>
+  const getIdCard = (card: CardAllCategory) =&gt; card.url.split('/').at(-2);
 &nbsp;
-  const handleCardClick = <span class="fstat-no" title="function not covered" >(card: CardAllCategory) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    const cardId = getIdCard(card);</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >    const searchText = searchParams.get('search');</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >    const detailsPart = cardId ? `/details/${cardId}` : '';</span>
-<span class="cstat-no" title="statement not covered" >    const searchPart = searchText ? `?search=${searchText}` : '';</span>
-<span class="cstat-no" title="statement not covered" >    const path = `/${category}/${cardsPerPage}/${page}${detailsPart}${searchPart}`;</span>
-<span class="cstat-no" title="statement not covered" >    navigate(path);</span>
-<span class="cstat-no" title="statement not covered" >  };</span>
-  const renderCards = () =&gt;
-    cards.map((card, i) =&gt; &lt;Card key={i} data={card} onClick={<span class="fstat-no" title="function not covered" >() =&gt; handleCardClick(card)} /</span>&gt;);
-  const renderNotFound = () =&gt; {
-    return (
-      &lt;span className={cl.noResult}&gt;
-        &lt;RiFileExcelLine /&gt;
-        {'No results found...'}
-      &lt;/span&gt;
-    );
+  const handleCardClick = (card: CardAllCategory) =&gt; {
+    const cardId = getIdCard(card);
+&nbsp;
+    const searchText = searchParams.get('search');
+&nbsp;
+    const detailsPart = cardId ? `/details/${cardId<span class="branch-0 cbranch-no" title="branch not covered" >}` : '';</span>
+    const searchPart = <span class="branch-0 cbranch-no" title="branch not covered" >searchText ? `?search=${searchText}` : '</span>';
+    const path = `/${category}/${cardsPerPage}/${page}${detailsPart}${searchPart}`;
+    navigate(path);
   };
+  const renderCards = () =&gt;
+    cards.map((card, i) =&gt; &lt;Card key={i} data={card} onClick={() =&gt; handleCardClick(card)} /&gt;);
+  const renderNotFound = <span class="fstat-no" title="function not covered" >() =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    return (</span>
+<span class="cstat-no" title="statement not covered" >      &lt;span className={cl.noResult}&gt;</span>
+<span class="cstat-no" title="statement not covered" >        &lt;RiFileExcelLine /&gt;</span>
+<span class="cstat-no" title="statement not covered" >        {'No results found...'}</span>
+<span class="cstat-no" title="statement not covered" >      &lt;/span&gt;</span>
+<span class="cstat-no" title="statement not covered" >    );</span>
+<span class="cstat-no" title="statement not covered" >  };</span>
 &nbsp;
-  return &lt;div className={cl.cardList}&gt;{cards.length ? renderCards() : renderNotFound()}&lt;/div&gt;;
+  return &lt;div className={cl.cardList}&gt;{cards.length ? renderCards(<span class="branch-0 cbranch-no" title="branch not covered" >) : renderNotFound()}&lt;</span>/div&gt;;
 };
 &nbsp;
 export default CardList;
@@ -181,7 +181,7 @@ export default CardList;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-11-12T10:02:18.832Z
+                at 2023-11-12T19:13:22.824Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>
