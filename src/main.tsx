@@ -7,6 +7,7 @@ import { loader as LoaderContent } from './components/Content/Content';
 import { loader as LoaderMainCard } from './components/MainCard/MainCard';
 import { RouteLinks } from './settings';
 import MainCard from './components/MainCard/MainCard';
+import NotFoundPage from './components/404/404';
 
 const router = createBrowserRouter([
   {
@@ -27,7 +28,7 @@ const router = createBrowserRouter([
   },
   {
     path: RouteLinks.notFound,
-    element: 'not found 404',
+    element: <NotFoundPage />,
   },
 ]);
 
