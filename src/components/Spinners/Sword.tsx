@@ -8,7 +8,7 @@ const Sword = ({ red }: { red?: boolean }) => {
     red,
   });
   return (
-    <div className={className}>
+    <div className={className} data-testid="loading-spinner">
       <div className={cl.sword}>
         <img src={hilt} alt="Sword loading" className={cl.hilt}></img>
         <div className={cl.blade}>

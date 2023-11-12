@@ -18,7 +18,13 @@ const BaseButton = ({
     close,
   });
   return (
-    <button disabled={disabled} value={name} className={className} onClick={callback}>
+    <button
+      data-testid={close ? 'close-button' : 'button'}
+      disabled={disabled}
+      value={name}
+      className={className}
+      onClick={callback}
+    >
       {children}
       {name}
     </button>

@@ -12,7 +12,7 @@ const mockCardData = {
   species: ['test'],
   starships: ['test'],
   vehicles: ['test'],
-  created: 'test',
+  created: 'tested',
   edited: 'test',
   url: 'https://swapi.py4e.com/api/people/2/',
 };

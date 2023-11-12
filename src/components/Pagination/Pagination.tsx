@@ -49,7 +49,7 @@ const Pagination = ({ pages }: PaginationProps) => {
   };
 
   return (
-    <div className={cl.pagination}>
+    <div className={cl.pagination} data-testid="pagination">
       <BaseButton circle callback={() => setPage(1)}>
         <RiArrowLeftDoubleLine />
       </BaseButton>
