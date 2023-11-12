@@ -1,4 +1,4 @@
-import MyButton from '../UI/MyButton/MyButton';
+import BaseButton from '../UI/BaseButton/BaseButton';
 import cl from './Pagination.module.css';
 import {
   RiArrowRightDoubleLine,
@@ -50,27 +50,27 @@ const Pagination = ({ pages }: PaginationProps) => {
 
   return (
     <div className={cl.pagination}>
-      <MyButton circle callback={() => setPage(1)}>
+      <BaseButton circle callback={() => setPage(1)}>
         <RiArrowLeftDoubleLine />
-      </MyButton>
-      <MyButton circle callback={() => setPage(getPrevPage())}>
+      </BaseButton>
+      <BaseButton circle callback={() => setPage(getPrevPage())}>
         <RiArrowLeftSLine />
-      </MyButton>
+      </BaseButton>
       {getPages().map((page: number) => (
-        <MyButton
+        <BaseButton
           key={Math.random()}
           circle
           active={page === +currentPage}
           name={page}
           callback={selectPage}
-        ></MyButton>
+        ></BaseButton>
       ))}
-      <MyButton circle callback={() => setPage(getNextPage())}>
+      <BaseButton circle callback={() => setPage(getNextPage())}>
         <RiArrowRightSLine />
-      </MyButton>
-      <MyButton circle callback={() => setPage(allPages)}>
+      </BaseButton>
+      <BaseButton circle callback={() => setPage(allPages)}>
         <RiArrowRightDoubleLine />
-      </MyButton>
+      </BaseButton>
     </div>
   );
 };

@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { getCardsPages } from '../API/ApiService';
 import { defaultRequestOptionsData } from '../../settings';
-import MyHeader from '../MyHeader/MyHeader';
-import MyMain from '../MyMain/MyMain';
+import Header from '../Header/Header';
+import Main from '../Main/Main';
 import { CardsPages, LoaderContentType, ParamsType, RequestOptionsData } from '../../types';
 import { RequestOptionsContext } from '../Context';
 import { useLoaderData, useNavigation } from 'react-router-dom';
@@ -25,7 +25,7 @@ export async function loader({ request, params }: LoaderContentType) {
   const cardsPages = await getCardsPages(options);
   return { cardsPages, params };
 }
-const MyContent = () => {
+const Content = () => {
   const [requestOptionsData, setRequestOptionsData] =
     useState<RequestOptionsData>(defaultRequestOptionsData);
   const [fetching, setFetching] = useState(false);
@@ -60,8 +60,8 @@ const MyContent = () => {
 
   return (
     <RequestOptionsContext.Provider value={{ requestOptionsData, setRequestOptionsData }}>
-      <MyHeader setError={setError} fetching={fetching} />
-      <MyMain
+      <Header setError={setError} fetching={fetching} />
+      <Main
         title={`${category} (${allCount})`}
         cardsData={requestOptionsData.cardsData}
         fetching={fetching}
@@ -71,4 +71,4 @@ const MyContent = () => {
   );
 };
 
-export default MyContent;
+export default Content;

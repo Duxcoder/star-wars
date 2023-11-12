@@ -1,8 +1,8 @@
 import { FormEvent } from 'react';
 import { InputProps } from '../../../types';
-import cl from './MyInput.module.css';
+import cl from './BaseInput.module.css';
 
-const MyInput = ({ value, type, placeholder, disabled, callback }: InputProps) => {
+const BaseInput = ({ value, type, placeholder, disabled, callback }: InputProps) => {
   const returnValue = (event: FormEvent<HTMLInputElement>) => {
     const target = event.target;
     if (target instanceof HTMLInputElement) {
@@ -21,9 +21,9 @@ const MyInput = ({ value, type, placeholder, disabled, callback }: InputProps) =
   );
 };
 
-export default MyInput;
+export default BaseInput;
 
-MyInput.defaultProps = {
+BaseInput.defaultProps = {
   value: '',
   type: 'text',
   placeholder: '',

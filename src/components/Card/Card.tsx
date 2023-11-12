@@ -1,9 +1,9 @@
-import cl from './MyCard.module.css';
+import cl from './Card.module.css';
 import { CardProps } from '../../types';
 import getCard from './identifyCardCategory';
 import { useEffect, useState } from 'react';
 
-const MyCard = ({ data, onClick }: CardProps) => {
+const Card = ({ data, onClick }: CardProps) => {
   const [card, setCard] = useState<[string, string][]>([]);
 
   useEffect(() => {
@@ -25,4 +25,4 @@ const MyCard = ({ data, onClick }: CardProps) => {
   );
 };
 
-export default MyCard;
+export default Card;

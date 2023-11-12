@@ -3,7 +3,7 @@ import App from './App.tsx';
 import './index.css';
 import './assets/fonts/fonts.css';
 import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom';
-import { loader as LoaderContent } from './components/MyContent/MyContent';
+import { loader as LoaderContent } from './components/Content/Content';
 import { loader as LoaderMainCard } from './components/MainCard/MainCard';
 import { RouteLinks } from './settings';
 import MainCard from './components/MainCard/MainCard';

@@ -1,7 +1,7 @@
 import { ButtonProps } from '../../../types';
-import cl from './MyButton.module.css';
+import cl from './BaseButton.module.css';
 import classNames from 'classnames/bind';
-const MyButton = ({
+const BaseButton = ({
   name,
   disabled,
   active,
@@ -25,9 +25,9 @@ const MyButton = ({
   );
 };
 
-export default MyButton;
+export default BaseButton;
 
-MyButton.defaultProps = {
+BaseButton.defaultProps = {
   name: '',
   disabled: false,
   callback: () => {},

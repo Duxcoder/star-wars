@@ -2,7 +2,7 @@ import cl from './MainCard.module.css';
 import { useLoaderData, useNavigate, useNavigation, useParams } from 'react-router-dom';
 import { getData } from '../API/ApiService';
 import { LoaderContentType } from '../../types';
-import MyButton from '../UI/MyButton/MyButton';
+import BaseButton from '../UI/BaseButton/BaseButton';
 import { RiCloseLine } from 'react-icons/ri';
 import Sword from '../Spinners/Sword';
 // eslint-disable-next-line react-refresh/only-export-components
@@ -19,9 +19,9 @@ const MainCard = () => {
 
   return (
     <div className={cl.card}>
-      <MyButton circle close callback={() => navigate(`/${category}/${cardsPerPage}/${page}`)}>
+      <BaseButton circle close callback={() => navigate(`/${category}/${cardsPerPage}/${page}`)}>
         <RiCloseLine />
-      </MyButton>
+      </BaseButton>
       {state === 'loading' ? (
         <Sword red />
       ) : (

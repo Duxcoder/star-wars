@@ -1,10 +1,10 @@
 import { SelectProps } from '../../../types';
-import cl from './MySelect.module.css';
+import cl from './BaseSelect.module.css';
 import { useEffect, useRef, useState } from 'react';
 import { RiArrowDownSLine, RiArrowUpSLine } from 'react-icons/ri';
 import { Categories } from '../../../settings';
 
-const MySelect = ({ value, options, onChange, label, disabled }: SelectProps) => {
+const BaseSelect = ({ value, options, onChange, label, disabled }: SelectProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const toggling = () => (disabled ? null : setIsOpen(!isOpen));
   const rootEl = useRef(null);
@@ -52,9 +52,9 @@ const MySelect = ({ value, options, onChange, label, disabled }: SelectProps) =>
   );
 };
 
-export default MySelect;
+export default BaseSelect;
 
-MySelect.defaultProps = {
+BaseSelect.defaultProps = {
   label: '',
   disabled: false,
   options: ['option one', 'option two'],

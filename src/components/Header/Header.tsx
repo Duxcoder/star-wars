@@ -1,13 +1,13 @@
 import { useContext } from 'react';
-import cl from './MyHeader.module.css';
-import MyInput from '../UI/MyInput/MyInput';
-import MyButton from '../UI/MyButton/MyButton';
+import cl from './Header.module.css';
+import BaseInput from '../UI/BaseInput/BaseInput';
+import BaseButton from '../UI/BaseButton/BaseButton';
 import { RiSearch2Line, RiErrorWarningLine } from 'react-icons/ri';
 import { HeaderProps } from '../../types';
 import { RequestOptionsContext } from '../Context';
 import { useNavigate } from 'react-router-dom';
 
-const MyHeader = ({ setError, fetching }: HeaderProps) => {
+const Header = ({ setError, fetching }: HeaderProps) => {
   const requestOptionsContext = useContext(RequestOptionsContext);
   const { requestOptionsData, setRequestOptionsData } = requestOptionsContext;
   const navigate = useNavigate();
@@ -26,22 +26,22 @@ const MyHeader = ({ setError, fetching }: HeaderProps) => {
           <span className={cl.logoName}>{'Star Wars'}</span>
         </a>
         <div className={cl.searchContainer}>
-          <MyInput
+          <BaseInput
             value={requestOptionsData.search}
             disabled={fetching}
             type={'search'}
             placeholder={'Find anything...'}
             callback={setSearchText}
           />
-          <MyButton disabled={fetching} name={'Search'} callback={startSearch}>
+          <BaseButton disabled={fetching} name={'Search'} callback={startSearch}>
             <RiSearch2Line />
-          </MyButton>
-          <MyButton name={'Error'} callback={() => setError('Oops! This is fatal error')}>
+          </BaseButton>
+          <BaseButton name={'Error'} callback={() => setError('Oops! This is fatal error')}>
             <RiErrorWarningLine />
-          </MyButton>
+          </BaseButton>
         </div>
       </div>
     </header>
   );
 };
-export default MyHeader;
+export default Header;

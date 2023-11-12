@@ -1,7 +1,7 @@
 import { Component, ErrorInfo } from 'react';
 import { ChildProps, ErrorBoundaryState } from '../../types';
 import cl from './ErrorBoundary.module.css';
-import MyButton from '../UI/MyButton/MyButton';
+import BaseButton from '../UI/BaseButton/BaseButton';
 export default class ErrorBoundary extends Component<ChildProps, ErrorBoundaryState> {
   constructor(props: ChildProps) {
     super(props);
@@ -30,7 +30,7 @@ export default class ErrorBoundary extends Component<ChildProps, ErrorBoundarySt
             <p>{this.state.errorInfo.componentStack}</p>
           </details>
           <a href="./">
-            <MyButton>Reload page</MyButton>
+            <BaseButton>Reload page</BaseButton>
           </a>
         </div>
       );

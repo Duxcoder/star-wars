@@ -1,10 +1,10 @@
-import cl from './MyCardList.module.css';
+import cl from './CardList.module.css';
 import { CardAllCategory, CardListProps } from '../../types';
-import MyCard from '../MyCard/MyCard';
+import Card from '../Card/Card';
 import { RiFileExcelLine } from 'react-icons/ri';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 
-const MyCardList = ({ cards }: CardListProps) => {
+const CardList = ({ cards }: CardListProps) => {
   const [searchParams] = useSearchParams();
   const { category, cardsPerPage, page } = useParams();
   const navigate = useNavigate();
@@ -21,7 +21,7 @@ const MyCardList = ({ cards }: CardListProps) => {
     navigate(path);
   };
   const renderCards = () =>
-    cards.map((card, i) => <MyCard key={i} data={card} onClick={() => handleCardClick(card)} />);
+    cards.map((card, i) => <Card key={i} data={card} onClick={() => handleCardClick(card)} />);
   const renderNotFound = () => {
     return (
       <span className={cl.noResult}>
@@ -34,4 +34,4 @@ const MyCardList = ({ cards }: CardListProps) => {
   return <div className={cl.cardList}>{cards.length ? renderCards() : renderNotFound()}</div>;
 };
 
-export default MyCardList;
+export default CardList;
