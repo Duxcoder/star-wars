@@ -5,20 +5,19 @@ import MyButton from '../UI/MyButton/MyButton';
 import { RiSearch2Line, RiErrorWarningLine } from 'react-icons/ri';
 import { HeaderProps } from '../../types';
 import { RequestOptionsContext } from '../Context';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const MyHeader = ({ setError, fetching }: HeaderProps) => {
   const requestOptionsContext = useContext(RequestOptionsContext);
   const { requestOptionsData, setRequestOptionsData } = requestOptionsContext;
   const navigate = useNavigate();
-  const pathParams = useParams();
 
   const setSearchText = (search: string) => {
-    if (setRequestOptionsData) setRequestOptionsData({ ...requestOptionsData, search });
+    if (setRequestOptionsData) setRequestOptionsData((prev) => ({ ...prev, search }));
   };
-  const startSearch = () => {
-    const { category, id } = pathParams;
-    navigate(`/${category}/10/1${id ? `/details/${id}` : ''}`);
+  const startSearch = async () => {
+    const { category, search } = requestOptionsData;
+    navigate(`/${category}/10/1${search ? `?search=${search}` : ''}`);
   };
   return (
     <header className={cl.header}>

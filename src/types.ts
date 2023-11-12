@@ -180,7 +180,6 @@ export interface CardPlanet {
   population: string;
   terrain: string;
 }
-export type GetContentType = (newSearch: boolean) => Promise<void>;
 export interface HeaderProps {
   fetching: boolean;
   setError: (err: string) => void;
@@ -202,6 +201,7 @@ export interface RequestOptionsData {
   allPages: number;
   currentPage: number;
   category: Categories | string;
+  cardsData: [] | CardAllCategory[];
 }
 export interface RequestOptionsContextType {
   requestOptionsData: RequestOptionsData;
@@ -218,5 +218,6 @@ export interface ParamsType {
   id?: string;
 }
 export interface LoaderContentType {
+  request: { url: string };
   params: ParamsType;
 }

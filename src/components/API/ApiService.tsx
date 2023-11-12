@@ -39,7 +39,7 @@ export async function getCardsPages({
 
   const cardsPages: CardsPages = { data: [], allCount: 0 };
   responses.forEach((response) => {
-    if (response) {
+    if (response.data) {
       cardsPages.data = [...cardsPages.data, ...response.data];
       cardsPages.allCount = response.allCount;
     }

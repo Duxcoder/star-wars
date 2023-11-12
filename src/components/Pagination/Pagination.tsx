@@ -10,12 +10,13 @@ import { PaginationProps } from '../../types';
 import { MouseEvent, useContext } from 'react';
 import { RequestOptionsContext } from '../Context';
 import { fillArray, limiter } from '../../utils/utils';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 const Pagination = ({ pages }: PaginationProps) => {
   const requestOptionsContext = useContext(RequestOptionsContext);
   const { requestOptionsData, setRequestOptionsData } = requestOptionsContext;
   const { currentPage, allPages } = requestOptionsData;
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const pathParams = useParams();
   const getPages = () => fillArray(pages, 1).map((page, i) => page + i);
   const selectPage = (e: MouseEvent<HTMLButtonElement>) => {
@@ -28,7 +29,12 @@ const Pagination = ({ pages }: PaginationProps) => {
     if (setRequestOptionsData) {
       setRequestOptionsData({ ...requestOptionsData, currentPage: page });
       const { category, cardsPerPage, id } = pathParams;
-      navigate(`/${category}/${cardsPerPage}/${page}${id ? `/details/${id}` : ''}`);
+      const searchText = searchParams.get('search');
+
+      const detailsPart = id ? `/details/${id}` : '';
+      const searchPart = searchText ? `?search=${searchText}` : '';
+      const path = `/${category}/${cardsPerPage}/${page}${detailsPart}${searchPart}`;
+      navigate(path);
     }
   };
 

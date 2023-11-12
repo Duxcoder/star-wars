@@ -30,4 +30,5 @@ export const defaultRequestOptionsData = {
   currentPage: 1,
   cardsPerPage: 10,
   category: initialCategory,
+  cardsData: [],
 };

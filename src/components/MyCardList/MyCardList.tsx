@@ -2,17 +2,23 @@ import cl from './MyCardList.module.css';
 import { CardAllCategory, CardListProps } from '../../types';
 import MyCard from '../MyCard/MyCard';
 import { RiFileExcelLine } from 'react-icons/ri';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 
 const MyCardList = ({ cards }: CardListProps) => {
-  const pathParams = useParams();
+  const [searchParams] = useSearchParams();
+  const { category, cardsPerPage, page } = useParams();
   const navigate = useNavigate();
   const getIdCard = (card: CardAllCategory) => card.url.split('/').at(-2);
 
   const handleCardClick = (card: CardAllCategory) => {
     const cardId = getIdCard(card);
-    const newPath = `/${pathParams.category}/${pathParams.cardsPerPage}/${pathParams.page}/details/${cardId}`;
-    navigate(newPath);
+
+    const searchText = searchParams.get('search');
+
+    const detailsPart = cardId ? `/details/${cardId}` : '';
+    const searchPart = searchText ? `?search=${searchText}` : '';
+    const path = `/${category}/${cardsPerPage}/${page}${detailsPart}${searchPart}`;
+    navigate(path);
   };
   const renderCards = () =>
     cards.map((card, i) => <MyCard key={i} data={card} onClick={() => handleCardClick(card)} />);
