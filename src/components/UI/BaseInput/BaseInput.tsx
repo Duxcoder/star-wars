@@ -1,6 +1,8 @@
-import { FormEvent } from 'react';
-import { InputProps } from '../../../types';
 import cl from './BaseInput.module.css';
+
+import { InputProps } from '../../../types';
+
+import { FormEvent } from 'react';
 
 const BaseInput = ({ value, type, placeholder, disabled, callback }: InputProps) => {
   const returnValue = (event: FormEvent<HTMLInputElement>) => {

@@ -32,6 +32,11 @@ body {
   margin: 0 auto;
   background: radial-gradient(#252f58, #1f2734);
 }
+#root {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+}
 .container {
   max-width: 1280px;
   width: 100%;

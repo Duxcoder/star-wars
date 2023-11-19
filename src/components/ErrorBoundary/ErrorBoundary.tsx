@@ -1,7 +1,9 @@
-import { Component, ErrorInfo } from 'react';
-import { ChildProps, ErrorBoundaryState } from '../../types';
-import cl from './ErrorBoundary.module.css';
 import BaseButton from '../UI/BaseButton/BaseButton';
+
+import { ChildProps, ErrorBoundaryState } from '../../types';
+
+import { Component, ErrorInfo } from 'react';
+import cl from './ErrorBoundary.module.css';
 export default class ErrorBoundary extends Component<ChildProps, ErrorBoundaryState> {
   constructor(props: ChildProps) {
     super(props);

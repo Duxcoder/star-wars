@@ -1,9 +1,11 @@
-import cl from './Main.module.css';
 import CardList from '../CardList/CardList';
 import Sword from '../Spinners/Sword';
-import { MainProps } from '../../types';
 import PageControlPanel from '../PageControlPanel/PageControlPanel';
 import Pagination from '../Pagination/Pagination';
+import cl from './Main.module.css';
+
+import { MainProps } from '../../types';
+
 import { Outlet, useParams } from 'react-router-dom';
 
 const Main = ({ title, cardsData, fetching, pages }: MainProps) => {
@@ -23,7 +25,7 @@ const Main = ({ title, cardsData, fetching, pages }: MainProps) => {
             </div>
           ) : null}
         </div>
-        {!fetching && pages && <Pagination pages={pages} />}
+        {!fetching && <Pagination pages={pages} />}
       </section>
     </main>
   );
