@@ -7,8 +7,7 @@ import { CardCharacterCategory, ParamsType } from '../../types';
 
 import { useEffect, useState } from 'react';
 import { useLoaderData, useNavigation } from 'react-router-dom';
-import { useAppDispatch } from '../../hooks/redux';
-import { starWarsSlice } from '../../redux/sliceReducer';
+import { useAppActions } from '../../hooks/redux';
 
 const Content = () => {
   const [fetching, setFetching] = useState(true);
@@ -19,11 +18,10 @@ const Content = () => {
     pages: number;
   };
   const { state } = useNavigation();
-  const { setCountPages } = starWarsSlice.actions;
-  const dispatch = useAppDispatch();
+  const { setCountPages } = useAppActions();
 
   useEffect(() => {
-    dispatch(setCountPages(cardsPagesData.pages));
+    setCountPages(cardsPagesData.pages);
   });
   useEffect(() => setFetching(state === 'loading'), [state]);
   useEffect(() => {

@@ -13,7 +13,7 @@ const PageControlPanel = ({ fetching }: { fetching: boolean }) => {
   const updateCategory = (value: number | Categories) => {
     const searchText = searchParams.get('search');
     const searchPart = searchText ? `?search=${searchText}` : '';
-    navigate(`/${value}/10/1${searchPart}`);
+    navigate(`/${value}/400/1${searchPart}`);
   };
 
   const updatePerPage = (value: number | Categories) => {

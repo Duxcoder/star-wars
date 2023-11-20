@@ -41,9 +41,9 @@ const MainCard = () => {
       {state === 'loading' ? (
         <Sword red />
       ) : (
-        card.map(([name, value], i) => {
+        card.map(([name, value]) => {
           return (
-            <div className={cl.cardRow} key={i}>
+            <div className={cl.cardRow} key={name}>
               <span className={cl.cardRowName}>{name.replace(/([a-z])([A-Z])/g, '$1 $2')}</span>
               <span className={cl.cardRowValue}>{checkNotFoundText(value)}</span>
             </div>

@@ -1,9 +1,9 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import starWarsReducer from './sliceReducer';
+import { reduxReducer } from './sliceReducer';
 import { APICards } from '../services/service';
 
 const rootReducer = combineReducers({
-  starWarsReducer,
+  reduxReducer,
   [APICards.reducerPath]: APICards.reducer,
 });
 

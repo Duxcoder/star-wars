@@ -11,16 +11,6 @@ const BaseSelect = ({ value, options, onChange, label, disabled }: SelectProps) 
   const toggling = () => (disabled ? null : setIsOpen(!isOpen));
   const rootEl = useRef(null);
 
-  const onClick = (e: Event) => {
-    const current = rootEl.current as HTMLElement | null;
-    if (current) current.contains(e.target as Node) || setIsOpen(false);
-  };
-
-  useEffect(() => {
-    document.addEventListener('click', onClick);
-    return () => document.removeEventListener('click', onClick);
-  }, []);
-
   useEffect(() => {
     if (disabled) setIsOpen(false);
   }, [disabled]);

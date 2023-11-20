@@ -50,4 +50,5 @@ export const starWarsSlice = createSlice({
   },
 });
 
-export default starWarsSlice.reducer;
+export const reduxReducer = starWarsSlice.reducer;
+export const reduxActions = starWarsSlice.actions;

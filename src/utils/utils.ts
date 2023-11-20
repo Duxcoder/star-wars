@@ -8,17 +8,12 @@ export const fillArray = (length: number, fill: string | number) => {
   return new Array(length).fill(fill);
 };
 
-export const checkNumber = (value: string | number | undefined, alternative: number) => {
-  if (typeof value === 'undefined') {
-    return alternative;
-  }
-  return +value;
-};
+export const checkNumber = (value: string | number | undefined, alternative: number) =>
+  value ? +value : alternative;
 
 export const checkNotFoundText = <T>(value: T) => {
   if (Array.isArray(value)) {
     return value.length ? value.join(', ') : '-';
   }
-  if (!value) return '-';
-  return value;
+  return value || '-';
 };

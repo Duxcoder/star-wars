@@ -21,7 +21,7 @@ const CardList = ({ cards }: CardListProps) => {
     navigate(path);
   };
   const renderCards = () =>
-    cards.map((card, i) => <Card key={i} data={card} onClick={() => handleCardClick(card)} />);
+    cards.map((card) => <Card key={card._id} data={card} onClick={() => handleCardClick(card)} />);
   const renderNotFound = () => {
     return (
       <span className={cl.noResult}>

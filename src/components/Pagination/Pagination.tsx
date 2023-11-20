@@ -18,7 +18,7 @@ const Pagination = ({ pages }: PaginationProps) => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const pathParams = useParams();
-  const { countPages } = useAppSelector((state) => state.starWarsReducer);
+  const { countPages } = useAppSelector((state) => state.reduxReducer);
   const { page } = pathParams;
 
   const getPages = () => fillArray(pages, 1).map((page, i) => page + i);
@@ -56,7 +56,7 @@ const Pagination = ({ pages }: PaginationProps) => {
       </BaseButton>
       {getPages().map((numPage: number) => (
         <BaseButton
-          key={Math.random()}
+          key={numPage}
           circle
           active={numPage === +(page ?? 1)}
           name={numPage}

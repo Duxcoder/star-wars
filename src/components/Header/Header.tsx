@@ -6,13 +6,11 @@ import cl from './Header.module.css';
 import { HeaderProps } from '../../types';
 
 import { useNavigate, useParams } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { starWarsSlice } from '../../redux/sliceReducer';
+import { useAppActions, useAppSelector } from '../../hooks/redux';
 
 const Header = ({ setError, fetching }: HeaderProps) => {
-  const { textSearch } = useAppSelector((state) => state.starWarsReducer);
-  const { setTextSearch } = starWarsSlice.actions;
-  const dispatch = useAppDispatch();
+  const { textSearch } = useAppSelector((state) => state.reduxReducer);
+  const { setTextSearch } = useAppActions();
   const { category } = useParams();
 
   const navigate = useNavigate();
@@ -31,7 +29,7 @@ const Header = ({ setError, fetching }: HeaderProps) => {
             disabled={fetching}
             type={'search'}
             placeholder={'Find anything...'}
-            callback={(value) => dispatch(setTextSearch(value))}
+            callback={(value) => setTextSearch(value)}
           />
           <BaseButton disabled={fetching} name={'Search'} callback={startSearch}>
             <RiSearch2Line />
