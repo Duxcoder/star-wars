@@ -3,10 +3,11 @@ import App from './App.tsx';
 import './index.css';
 import './assets/fonts/fonts.css';
 import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom';
-import { loader as LoaderContent } from './components/MyContent/MyContent';
+import { loader as LoaderContent } from './components/Content/Content';
 import { loader as LoaderMainCard } from './components/MainCard/MainCard';
 import { RouteLinks } from './settings';
 import MainCard from './components/MainCard/MainCard';
+import NotFoundPage from './components/404/404';
 
 const router = createBrowserRouter([
   {
@@ -27,7 +28,7 @@ const router = createBrowserRouter([
   },
   {
     path: RouteLinks.notFound,
-    element: 'not found 404',
+    element: <NotFoundPage />,
   },
 ]);
 

@@ -1,10 +1,10 @@
 import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
-import MyContent from './components/MyContent/MyContent';
+import Content from './components/Content/Content';
 
 const App = () => {
   return (
     <ErrorBoundary>
-      <MyContent />
+      <Content />
     </ErrorBoundary>
   );
 };

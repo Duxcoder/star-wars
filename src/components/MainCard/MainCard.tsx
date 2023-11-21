@@ -2,7 +2,7 @@ import cl from './MainCard.module.css';
 import { useLoaderData, useNavigate, useNavigation, useParams } from 'react-router-dom';
 import { getData } from '../API/ApiService';
 import { LoaderContentType } from '../../types';
-import MyButton from '../UI/MyButton/MyButton';
+import BaseButton from '../UI/BaseButton/BaseButton';
 import { RiCloseLine } from 'react-icons/ri';
 import Sword from '../Spinners/Sword';
 // eslint-disable-next-line react-refresh/only-export-components
@@ -18,10 +18,10 @@ const MainCard = () => {
   const card = Object.entries(cardData ?? [['error', 'Data is not found']]);
 
   return (
-    <div className={cl.card}>
-      <MyButton circle close callback={() => navigate(`/${category}/${cardsPerPage}/${page}`)}>
+    <div className={cl.card} data-testid="main-card">
+      <BaseButton circle close callback={() => navigate(`/${category}/${cardsPerPage}/${page}`)}>
         <RiCloseLine />
-      </MyButton>
+      </BaseButton>
       {state === 'loading' ? (
         <Sword red />
       ) : (

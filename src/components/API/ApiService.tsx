@@ -1,13 +1,13 @@
-import axios from 'axios';
 import { API_SERVICE_URL, Categories } from '../../settings';
 import { CardsPages } from '../../types';
 import { fillArray } from '../../utils/utils';
 
 export async function getData(query: string) {
   try {
-    const response = await axios.get(API_SERVICE_URL + query);
-    const { count, results } = response.data;
-    return count ? { data: results, allCount: count } : response.data;
+    const response = await fetch(API_SERVICE_URL + query);
+    const data = await response.json();
+    const { count, results } = data;
+    return count ? { data: results, allCount: count } : data;
   } catch (e) {
     if (typeof e === 'string') {
       throw new Error(e.toUpperCase());

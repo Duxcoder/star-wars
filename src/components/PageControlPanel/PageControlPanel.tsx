@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import cl from './PageControlPanel.module.css';
-import MySelect from '../UI/MySelect/MySelect';
+import BaseSelect from '../UI/BaseSelect/BaseSelect';
 import { Categories, CATEGORIES } from '../../settings';
 import { RequestOptionsContext } from '../Context';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
@@ -55,20 +55,20 @@ const PageControlPanel = ({ fetching }: { fetching: boolean }) => {
 
   return (
     <div className={cl.pageControlPanel}>
-      <MySelect
+      <BaseSelect
         value={category}
         onChange={updateCategory}
         label={'Category:'}
         options={CATEGORIES}
         disabled={fetching}
-      ></MySelect>
-      <MySelect
+      ></BaseSelect>
+      <BaseSelect
         value={cardsPerPage}
         onChange={updatePerPage}
         label={'Show cards:'}
         options={getListCardsPerPage()}
         disabled={fetching || !getListCardsPerPage().length}
-      ></MySelect>
+      ></BaseSelect>
     </div>
   );
 };
