@@ -1,13 +1,14 @@
-import { ReactNode, MouseEvent, ErrorInfo } from 'react';
-
-export type EmptyProps = Record<string, never>;
+import { Dispatch, ReactNode, MouseEvent, ErrorInfo, SetStateAction } from 'react';
+import { Categories } from './settings';
 export interface ChildProps {
   children: ReactNode;
 }
 export interface ButtonProps {
-  name: string;
+  name: string | number;
   disabled: boolean;
-  children: ReactNode;
+  children?: ReactNode;
+  active?: boolean;
+  circle?: boolean;
   callback: (event: MouseEvent<HTMLButtonElement>) => void;
 }
 export interface InputProps {
@@ -16,6 +17,13 @@ export interface InputProps {
   disabled: boolean;
   type: 'text' | 'search';
   callback: (text: string) => void;
+}
+export interface SelectProps {
+  value: string | number;
+  disabled: boolean;
+  options: (number | Categories)[];
+  onChange: (value: number | Categories) => void;
+  label: string;
 }
 interface CardCommonCategory {
   created: string;
@@ -83,7 +91,6 @@ export interface CardVehiclesCategory extends CardCommonCategory {
   films: string[];
   vehicle_class: string;
 }
-
 export interface CardSpeciesCategory extends CardCommonCategory {
   average_height: string;
   average_lifespan: string;
@@ -98,7 +105,6 @@ export interface CardSpeciesCategory extends CardCommonCategory {
   films: string[];
   skin_colors: string;
 }
-
 export interface CardPlanetsCategory extends CardCommonCategory {
   climate: string;
   diameter: string;
@@ -119,25 +125,17 @@ export type CardAllCategory =
   | CardSpeciesCategory
   | CardStarshipsCategory
   | CardVehiclesCategory;
-export interface ContentState {
-  search: string;
-  data: [] | CardAllCategory[];
-  fetching: boolean;
-  error: string;
-}
 export interface ErrorBoundaryState {
   error: Error | null;
   errorInfo: ErrorInfo | null;
 }
 export interface CardListProps {
   cards: [] | CardAllCategory[];
-}
-
-export interface CardState {
-  data: CardAll | null;
+  setSelectedCard: Dispatch<SetStateAction<CardAllCategory | null>>;
 }
 export interface CardProps {
   data: CardAllCategory;
+  callback?: (data: CardAllCategory) => void;
 }
 export type CardAll = CardPeople | CardVehicle | CardFilm | CardStarship | CardSpecies | CardPlanet;
 export interface CardPeople {
@@ -181,4 +179,43 @@ export interface CardPlanet {
   climate: string;
   population: string;
   terrain: string;
+}
+export type GetContentType = (newSearch: boolean) => Promise<void>;
+export interface HeaderProps {
+  fetching: boolean;
+  setError: (err: string) => void;
+}
+export interface MainProps {
+  title: Categories | string;
+  cardsData: [] | CardAllCategory[];
+  fetching: boolean;
+  pages: number;
+}
+export interface CardsPages {
+  data: CardAllCategory[];
+  allCount: number;
+}
+export interface RequestOptionsData {
+  search: string;
+  allCount: number;
+  cardsPerPage: number;
+  allPages: number;
+  currentPage: number;
+  category: Categories | string;
+}
+export interface RequestOptionsContextType {
+  requestOptionsData: RequestOptionsData;
+  setRequestOptionsData: Dispatch<SetStateAction<RequestOptionsData>> | null;
+}
+export interface PaginationProps {
+  pages: number;
+}
+export interface ParamsType {
+  category?: string;
+  search?: string;
+  cardsPerPage?: string;
+  page?: string;
+}
+export interface LoaderContentType {
+  params: ParamsType;
 }

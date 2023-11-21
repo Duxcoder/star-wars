@@ -35,7 +35,6 @@ export default class ErrorBoundary extends Component<ChildProps, ErrorBoundarySt
         </div>
       );
     }
-    // Normally, just render children
     return this.props.children;
   }
 }

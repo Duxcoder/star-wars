@@ -1,85 +1,77 @@
-import { Component } from 'react';
-import cl from './MyContent.module.css';
-import MyInput from '../UI/MyInput/MyInput';
-import MyButton from '../UI/MyButton/MyButton';
-import MyCardList from '../MyCardList/MyCardList';
-import Sword from '../Spinners/Sword';
-import ApiService from '../API/ApiService';
-import { RiSearch2Line, RiErrorWarningLine } from 'react-icons/ri';
-import { ContentState, EmptyProps } from '../../types';
-import { LocalStorage } from '../../settings';
+import { useEffect, useState } from 'react';
+import { getCardsPages } from '../API/ApiService';
+import { defaultRequestOptionsData } from '../../settings';
+import MyHeader from '../MyHeader/MyHeader';
+import MyMain from '../MyMain/MyMain';
+import {
+  CardAllCategory,
+  CardsPages,
+  LoaderContentType,
+  ParamsType,
+  RequestOptionsData,
+} from '../../types';
+import { RequestOptionsContext } from '../Context';
+import { useLoaderData } from 'react-router-dom';
+import { checkNumber } from '../../utils/utils';
 
-class MyContent extends Component<EmptyProps, ContentState> {
-  constructor(props: EmptyProps) {
-    super(props);
-    this.state = {
-      search: localStorage.getItem(LocalStorage.searchText) ?? '',
-      data: [],
-      fetching: false,
-      error: '',
-    };
-    this.setSearch = this.setSearch.bind(this);
-    this.setError = this.setError.bind(this);
-  }
-  private _containerClasses = [cl.container, 'container'];
-  private async getContent(searchText: string) {
-    this.setState({ fetching: true });
-    localStorage.setItem(LocalStorage.searchText, searchText);
-    const data = await ApiService.getSearchAllData(searchText);
-    this.setState({ data, fetching: false });
-  }
-  setSearch(text: string) {
-    this.setState({
-      search: text.trim(),
-    });
-  }
-  setError(error: string) {
-    this.setState({ error });
-  }
-  componentDidUpdate() {
-    if (this.state.error) throw new Error(this.state.error);
-  }
-  componentDidMount() {
-    this.getContent(this.state.search).catch((err) => this.setError(err));
-  }
-  render() {
-    return (
-      <>
-        <header className={cl.header}>
-          <div className={this._containerClasses.join(' ')}>
-            <a href="/" className={cl.logo}>
-              <span className={cl.logoName}>{'Star Wars'}</span>
-            </a>
-            <div className={cl.searchContainer}>
-              <MyInput
-                value={this.state.search}
-                disabled={this.state.fetching}
-                type={'search'}
-                placeholder={'Find anything...'}
-                callback={this.setSearch}
-              />
-              <MyButton
-                disabled={this.state.fetching}
-                name={'Search'}
-                callback={() => this.getContent(this.state.search)}
-              >
-                <RiSearch2Line />
-              </MyButton>
-              <MyButton name={'Error'} callback={() => this.setError('Oops! This is fatal error')}>
-                <RiErrorWarningLine />
-              </MyButton>
-            </div>
-          </div>
-        </header>
-        <main className={cl.main}>
-          <section className="container">
-            <h1 className={cl.title}> {'Star Wars'} </h1>
-            {this.state.fetching ? <Sword /> : <MyCardList cards={this.state.data} />}
-          </section>
-        </main>
-      </>
-    );
-  }
+// eslint-disable-next-line react-refresh/only-export-components
+export async function loader({ params }: LoaderContentType) {
+  const { category, search, cardsPerPage, currentPage } = defaultRequestOptionsData;
+  const options = {
+    category: params.category ?? category,
+    text: params.search ?? search,
+    pages: checkNumber(params.cardsPerPage, cardsPerPage) / 10,
+    startPage: checkNumber(params.page, currentPage),
+  };
+  const cardsPages = await getCardsPages(options);
+  return { cardsPages, params };
 }
+const MyContent = () => {
+  const [dataCards, setDataCards] = useState<CardAllCategory[]>([]);
+  const [requestOptionsData, setRequestOptionsData] =
+    useState<RequestOptionsData>(defaultRequestOptionsData);
+  const [fetching, setFetching] = useState(false);
+  const [error, setError] = useState('');
+  const { cardsPerPage, category, allPages, allCount } = requestOptionsData;
+  const cardsPagesData = useLoaderData() as { cardsPages: CardsPages; params: ParamsType };
+
+  const getContent = async () => {
+    const { cardsPages, params } = cardsPagesData;
+
+    setFetching(true);
+    const updateCardsPerPage = params.cardsPerPage || requestOptionsData.cardsPerPage;
+    const updateCurrentPage = params.page || requestOptionsData.currentPage;
+    setFetching(false);
+    setDataCards(cardsPages.data);
+
+    const updateOptions = {
+      allPages: Math.ceil(+cardsPages.allCount / +updateCardsPerPage),
+      allCount: +cardsPages.allCount,
+      cardsPerPage: checkNumber(params.cardsPerPage, +cardsPerPage),
+      currentPage: +updateCurrentPage,
+      search: params.search || '',
+      category: params.category || requestOptionsData.category,
+    };
+    setRequestOptionsData({ ...updateOptions });
+  };
+
+  useEffect(() => {
+    getContent().catch((err) => setError(err));
+    if (error) throw new Error(error);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [error, cardsPagesData]);
+
+  return (
+    <RequestOptionsContext.Provider value={{ requestOptionsData, setRequestOptionsData }}>
+      <MyHeader setError={setError} fetching={fetching} />
+      <MyMain
+        title={`${category} (${allCount})`}
+        cardsData={dataCards}
+        fetching={fetching}
+        pages={allPages}
+      />
+    </RequestOptionsContext.Provider>
+  );
+};
 
 export default MyContent;

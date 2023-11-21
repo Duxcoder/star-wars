@@ -1,25 +1,48 @@
 import axios from 'axios';
-import { API_SERVICE_URL, CATEGORIES } from '../../settings';
+import { API_SERVICE_URL, Categories } from '../../settings';
+import { CardsPages } from '../../types';
+import { fillArray } from '../../utils/utils';
 
-export default class ApiService {
-  static async getData(query: string) {
-    try {
-      const response = await axios.get(API_SERVICE_URL + query);
-      return response.data.count ? response.data.results : [];
-    } catch (e) {
-      if (typeof e === 'string') {
-        throw new Error(e.toUpperCase());
-      } else if (e instanceof Error) {
-        throw new Error(e.message);
-      }
+export async function getData(query: string) {
+  try {
+    const response = await axios.get(API_SERVICE_URL + query);
+    const { count, results } = response.data;
+    return count ? { data: results, allCount: count } : null;
+  } catch (e) {
+    if (typeof e === 'string') {
+      throw new Error(e.toUpperCase());
+    } else if (e instanceof Error) {
+      throw new Error(e.message);
     }
   }
-  static async getSearchData(category: string, text: string) {
-    return await this.getData(`${category}/?search=${text}`);
-  }
-  static async getSearchAllData(text: string) {
-    const requests = CATEGORIES.map((category) => this.getSearchData(category, text));
-    const responses = await Promise.all(requests);
-    return responses.reduce((result, response) => [...response, ...result], []);
-  }
+}
+
+export async function getSearchData(category: Categories | string, text: string, page: number = 1) {
+  return await getData(`${category}/?search=${text}&page=${page}`);
+}
+
+export async function getCardsPages({
+  category,
+  text,
+  pages = 1,
+  startPage = 1,
+}: {
+  category: Categories | string;
+  text: string;
+  pages: number;
+  startPage: number;
+}) {
+  const requests = fillArray(pages, 0).map((num, i) =>
+    getSearchData(category, text, startPage + num + i)
+  );
+  const responses = await Promise.all(requests);
+
+  const cardsPages: CardsPages = { data: [], allCount: 0 };
+  responses.forEach((response) => {
+    if (response) {
+      cardsPages.data = [...cardsPages.data, ...response.data];
+      cardsPages.allCount = response.allCount;
+    }
+  });
+  return cardsPages;
 }

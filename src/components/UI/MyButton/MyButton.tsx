@@ -1,22 +1,27 @@
-import { Component } from 'react';
 import { ButtonProps } from '../../../types';
 import cl from './MyButton.module.css';
-class MyButton extends Component<ButtonProps> {
-  constructor(props: ButtonProps) {
-    super(props);
-  }
-  static defaultProps = {
-    name: '',
-    disabled: false,
-    callback: () => {},
-  };
-  render() {
-    return (
-      <button disabled={this.props.disabled} className={cl.button} onClick={this.props.callback}>
-        {this.props.children}
-        {this.props.name}
-      </button>
-    );
-  }
-}
+
+const MyButton = ({
+  name,
+  disabled,
+  active,
+  callback,
+  circle = false,
+  children = '',
+}: ButtonProps) => {
+  const getClasses = () => `${cl.button} ${active ? cl.active : ''} ${circle ? cl.circle : ''}`;
+  return (
+    <button disabled={disabled} value={name} className={getClasses()} onClick={callback}>
+      {children}
+      {name}
+    </button>
+  );
+};
+
 export default MyButton;
+
+MyButton.defaultProps = {
+  name: '',
+  disabled: false,
+  callback: () => {},
+};

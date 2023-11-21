@@ -1,8 +1,8 @@
 .cardList {
   display: flex;
   flex-direction: column;
-  height: calc(100% - 3em);
   gap: 1em;
+  height: 100%;
   overflow: scroll;
   box-sizing: border-box;
 }
