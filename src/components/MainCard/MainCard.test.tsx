@@ -1,7 +1,8 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { screen, fireEvent } from '@testing-library/react';
 import { createMemoryRouter, RouterProvider } from 'react-router-dom';
 import { test, expect } from 'vitest';
 import MainCard, { loader as LoaderMainCard } from './MainCard';
+import { renderWithProviders } from '../../mocks/renderWithProvider';
 
 test('renders detailed card data when loaded', async () => {
   const routes = [
@@ -11,8 +12,8 @@ test('renders detailed card data when loaded', async () => {
       loader: LoaderMainCard,
     },
   ];
-  const router = createMemoryRouter(routes, { initialEntries: ['/people/10/1/details/2'] });
-  render(<RouterProvider router={router} />);
+  const router = createMemoryRouter(routes, { initialEntries: ['/character/400/1/details/112'] });
+  renderWithProviders(<RouterProvider router={router} />);
 
   await screen.findByTestId('main-card');
 
@@ -30,8 +31,8 @@ test('hides MainCard component on close button click', async () => {
       loader: LoaderMainCard,
     },
   ];
-  const router = createMemoryRouter(routes, { initialEntries: ['/people/10/1/details/2'] });
-  render(<RouterProvider router={router} />);
+  const router = createMemoryRouter(routes, { initialEntries: ['/character/400/1/details/112'] });
+  renderWithProviders(<RouterProvider router={router} />);
 
   await screen.findByTestId('main-card');
 

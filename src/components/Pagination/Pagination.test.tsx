@@ -1,8 +1,9 @@
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import { createMemoryRouter, RouterProvider } from 'react-router-dom';
 import { test, expect } from 'vitest';
 import Pagination from './Pagination';
 import cl from '../UI/BaseButton/BaseButton.module.css';
+import { renderWithProviders } from '../../mocks/renderWithProvider';
 
 test('updates URL parameter when changing pages', async () => {
   const routes = [
@@ -11,8 +12,8 @@ test('updates URL parameter when changing pages', async () => {
       element: <Pagination pages={10} />,
     },
   ];
-  const router = createMemoryRouter(routes, { initialEntries: ['/people/10/1/details/2'] });
-  render(<RouterProvider router={router} />);
+  const router = createMemoryRouter(routes, { initialEntries: ['/character/400/1/details/112'] });
+  renderWithProviders(<RouterProvider router={router} />);
 
   expect(screen.getByTestId('pagination')).toBeInTheDocument();
   expect(screen.getByText('1')).toHaveClass(cl.active);

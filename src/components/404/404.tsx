@@ -1,7 +1,7 @@
-import cl from './404.module.css';
 import BaseButton from '../UI/BaseButton/BaseButton';
-import { Link } from 'react-router-dom';
+import cl from './404.module.css';
 
+import { Link } from 'react-router-dom';
 const NotFoundPage = () => {
   return (
     <div className={cl.container}>

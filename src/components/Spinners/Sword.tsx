@@ -1,5 +1,6 @@
-import cl from './Sword.module.css';
 import hilt from '../../assets/images/hilt.svg';
+import cl from './Sword.module.css';
+
 import classNames from 'classnames/bind';
 const Sword = ({ red }: { red?: boolean }) => {
   const cx = classNames.bind(cl);

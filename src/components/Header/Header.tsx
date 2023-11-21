@@ -1,37 +1,37 @@
-import { useContext } from 'react';
-import cl from './Header.module.css';
 import BaseInput from '../UI/BaseInput/BaseInput';
 import BaseButton from '../UI/BaseButton/BaseButton';
 import { RiSearch2Line, RiErrorWarningLine } from 'react-icons/ri';
+import cl from './Header.module.css';
+
 import { HeaderProps } from '../../types';
-import { RequestOptionsContext } from '../Context';
-import { useNavigate } from 'react-router-dom';
+
+import { useNavigate, useParams } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { starWarsSlice } from '../../redux/sliceReducer';
 
 const Header = ({ setError, fetching }: HeaderProps) => {
-  const requestOptionsContext = useContext(RequestOptionsContext);
-  const { requestOptionsData, setRequestOptionsData } = requestOptionsContext;
-  const navigate = useNavigate();
+  const { textSearch } = useAppSelector((state) => state.starWarsReducer);
+  const { setTextSearch } = starWarsSlice.actions;
+  const dispatch = useAppDispatch();
+  const { category } = useParams();
 
-  const setSearchText = (search: string) => {
-    if (setRequestOptionsData) setRequestOptionsData((prev) => ({ ...prev, search }));
-  };
+  const navigate = useNavigate();
   const startSearch = async () => {
-    const { category, search } = requestOptionsData;
-    navigate(`/${category}/10/1${search ? `?search=${search}` : ''}`);
+    navigate(`/${category}/400/1${textSearch ? `?search=${textSearch}` : ''}`);
   };
   return (
     <header className={cl.header}>
       <div className={[cl.container, 'container'].join(' ')}>
         <a href="/" className={cl.logo}>
-          <span className={cl.logoName}>{'Star Wars'}</span>
+          <span className={cl.logoName}>{'DISNAY CARDS'}</span>
         </a>
         <div className={cl.searchContainer}>
           <BaseInput
-            value={requestOptionsData.search}
+            value={textSearch}
             disabled={fetching}
             type={'search'}
             placeholder={'Find anything...'}
-            callback={setSearchText}
+            callback={(value) => dispatch(setTextSearch(value))}
           />
           <BaseButton disabled={fetching} name={'Search'} callback={startSearch}>
             <RiSearch2Line />

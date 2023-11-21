@@ -1,8 +1,10 @@
-import { SelectProps } from '../../../types';
-import cl from './BaseSelect.module.css';
-import { useEffect, useRef, useState } from 'react';
 import { RiArrowDownSLine, RiArrowUpSLine } from 'react-icons/ri';
+import cl from './BaseSelect.module.css';
+
+import { SelectProps } from '../../../types';
 import { Categories } from '../../../settings';
+
+import { useEffect, useRef, useState } from 'react';
 
 const BaseSelect = ({ value, options, onChange, label, disabled }: SelectProps) => {
   const [isOpen, setIsOpen] = useState(false);

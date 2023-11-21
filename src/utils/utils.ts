@@ -14,3 +14,11 @@ export const checkNumber = (value: string | number | undefined, alternative: num
   }
   return +value;
 };
+
+export const checkNotFoundText = <T>(value: T) => {
+  if (Array.isArray(value)) {
+    return value.length ? value.join(', ') : '-';
+  }
+  if (!value) return '-';
+  return value;
+};
