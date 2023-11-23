@@ -2,6 +2,7 @@ module.exports = {
   root: true,
   extends: ['next/core-web-vitals', 'prettier'],
   parser: '@typescript-eslint/parser',
+  ignorePatterns: ['.eslintrc.cjs', 'package.json'],
   rules: {
     'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
     'react-hooks/rules-of-hooks': 'error',
