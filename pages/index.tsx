@@ -1,32 +1,29 @@
-import React from 'react';
-import { GetServerSideProps } from 'next';
 import Layout from '../components/layout';
 import Head from 'next/head';
+
 import { CardCharacterCategory, RequestAnswerType } from '../@types';
-import { API_SERVICE_URL } from '../lib/constants';
-export default function Index({
-  cards,
-}: {
-  children: React.ReactNode;
-  cards: CardCharacterCategory[];
-}) {
+import { API_SERVICE_URL, defaultQuery } from '../lib/constants';
+
+import { ReactNode } from 'react';
+import { GetServerSideProps } from 'next';
+import Header from '../components/Header/Header';
+import Content from '../components/Content/Content';
+
+export default function Index({ cards }: { children: ReactNode; cards: CardCharacterCategory[] }) {
   return (
     <Layout>
       <Head>
         <title>Disney | Home</title>
       </Head>
-      <section>
-        {cards.map((cardInfo) => (
-          <p key={cardInfo._id}>{cardInfo.name}</p>
-        ))}
-      </section>
+      <Header fetching={false} setError={() => {}} />
+      <Content title={'Character'} cards={cards} />
     </Layout>
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async (arg) => {
-  console.log(arg);
-  const response = await fetch(API_SERVICE_URL + '/character/?page=1&pageSize=10');
+export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+  const queryPath = new URLSearchParams({ ...defaultQuery, ...query });
+  const response = await fetch(`${API_SERVICE_URL}/character/?${queryPath.toString()}`);
   const { data }: RequestAnswerType = await response.json();
 
   return {
