@@ -8,11 +8,11 @@
   color: #fff;
 }
 
-h1 {
+.title {
   font-size: 3em;
   margin-bottom: 10px;
 }
 
-p {
+.paragraph {
   font-size: 1.5em;
 }
