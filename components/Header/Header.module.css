@@ -1,0 +1,34 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 100px;
+  background-color: #000;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.searchContainer {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  align-content: center;
+  gap: 1em;
+}
+
+.logoName {
+  width: min-content;
+  font-size: 2em;
+  line-height: 1em;
+  text-transform: uppercase;
+  color: #fff;
+}
