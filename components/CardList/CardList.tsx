@@ -3,6 +3,7 @@ import { RiFileExcelLine } from 'react-icons/ri';
 import cl from './CardList.module.css';
 
 import { CardListProps } from '@myTypes/main';
+
 import { useRouter } from 'next/router';
 const CardList = ({ cards }: CardListProps) => {
   const router = useRouter();

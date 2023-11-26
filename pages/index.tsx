@@ -1,13 +1,14 @@
-import Layout from '../components/layout';
+import Layout from '@components/layout';
+import Header from '@components/Header/Header';
+import Content from '@components/Content/Content';
+import CardList from '@components/CardList/CardList';
 import Head from 'next/head';
 
-import { CardCharacterCategory, RequestAnswerType } from '../@types';
-import { API_SERVICE_URL, defaultQuery } from '../lib/constants';
-
+import { CardCharacterCategory, RequestAnswerType } from '@myTypes/main';
 import { ReactNode } from 'react';
 import { GetServerSideProps } from 'next';
-import Header from '../components/Header/Header';
-import Content from '../components/Content/Content';
+
+import { getAllCards } from '../lib/api/cards';
 
 export default function Index({ cards }: { children: ReactNode; cards: CardCharacterCategory[] }) {
   return (
@@ -15,18 +16,17 @@ export default function Index({ cards }: { children: ReactNode; cards: CardChara
       <Head>
         <title>Disney | Home</title>
       </Head>
-      <Header fetching={false} setError={() => {}} />
-      <Content title={'Character'} cards={cards} />
+      <Header setError={() => {}} />
+      <Content title={'Character'}>
+        <CardList cards={cards} />
+      </Content>
     </Layout>
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ query }) => {
-  const queryPath = new URLSearchParams({ ...defaultQuery, ...query });
-  const response = await fetch(`${API_SERVICE_URL}/character/?${queryPath.toString()}`);
-  const { data }: RequestAnswerType = await response.json();
-
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const cards: RequestAnswerType = await getAllCards(context);
   return {
-    props: { cards: data },
+    props: { cards: cards.data },
   };
 };

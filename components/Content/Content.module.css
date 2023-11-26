@@ -27,10 +27,8 @@
 }
 
 .sideList {
+  display: flex;
+  justify-content: space-between;
   width: 100%;
-}
-
-.sideCard {
-  width: 50%;
-  min-width: 50%;
+  gap: 1em;
 }

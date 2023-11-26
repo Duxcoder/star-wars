@@ -6,12 +6,16 @@ import { RiSearch2Line, RiErrorWarningLine } from 'react-icons/ri';
 import { M_PLUS_Rounded_1c } from 'next/font/google';
 import cl from './Header.module.css';
 
-import { HeaderProps } from '../../@types';
+import { HeaderProps } from '@myTypes/main';
 import Link from 'next/link';
 
-const logoFont = M_PLUS_Rounded_1c({ style: 'normal', weight: '500', subsets: ['cyrillic'] });
+const logoFont = M_PLUS_Rounded_1c({
+  style: 'normal',
+  weight: '900',
+  subsets: ['cyrillic'],
+});
 
-const Header = ({ setError, fetching }: HeaderProps) => {
+const Header = ({ setError }: HeaderProps) => {
   return (
     <header className={cl.header}>
       <div className={[cl.container, 'container'].join(' ')}>

@@ -27,11 +27,8 @@
 
 .logoName {
   width: min-content;
-  padding-bottom: 0.2em;
   font-size: 2em;
-  line-height: 0.8em;
+  line-height: 1em;
   text-transform: uppercase;
-  font-family: 'Star Jedi', serif;
-  font-weight: bolder;
   color: #fff;
 }

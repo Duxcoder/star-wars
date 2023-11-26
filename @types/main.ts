@@ -23,6 +23,10 @@ export interface RequestAnswerType {
   info: { count: number; totalPages: number };
 }
 
+export interface RequestAnswerCardType {
+  data: CardCharacterCategory;
+  info: { count: number; totalPages: number };
+}
 export interface ButtonProps {
   name: string | number;
   disabled: boolean;
@@ -42,11 +46,10 @@ export interface InputProps {
 
 export interface ContentProps {
   title: string;
-  cards: [] | CardCharacterCategory[];
+  children: ReactNode;
 }
 
 export interface HeaderProps {
-  fetching: boolean;
   setError: (err: string) => void;
 }
 
