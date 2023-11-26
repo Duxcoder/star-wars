@@ -14,7 +14,7 @@ export default function Character({ cards, card, pages }: CharacterProps) {
   const title = `${card.name} | DISNEY CARDS`;
   return (
     <Layout>
-      <Header setError={() => {}} />
+      <Header />
       <Head>
         <title>{title}</title>
       </Head>

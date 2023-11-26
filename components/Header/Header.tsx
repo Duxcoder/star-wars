@@ -4,11 +4,9 @@ import { RiSearch2Line, RiErrorWarningLine } from 'react-icons/ri';
 import { M_PLUS_Rounded_1c } from 'next/font/google';
 import cl from './Header.module.css';
 
-import { HeaderProps } from '@myTypes/main';
-
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const logoFont = M_PLUS_Rounded_1c({
   style: 'normal',
@@ -16,10 +14,15 @@ const logoFont = M_PLUS_Rounded_1c({
   subsets: ['cyrillic'],
 });
 
-const Header = ({ setError }: HeaderProps) => {
+const Header = () => {
   const router = useRouter();
   const { name, ...currentQuery } = router.query;
+  const [error, setError] = useState('');
   const [searchText, setSearchText] = useState(name?.toString() || '');
+
+  useEffect(() => {
+    if (error) throw new Error(error);
+  }, [error]);
 
   const runSearch = () => {
     const newUrl = {
@@ -28,6 +31,7 @@ const Header = ({ setError }: HeaderProps) => {
     };
     router.push(newUrl);
   };
+
   return (
     <header className={cl.header}>
       <div className={[cl.container, 'container'].join(' ')}>

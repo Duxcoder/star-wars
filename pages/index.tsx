@@ -15,14 +15,13 @@ export default function Index({ cards, pages }: indexProps) {
       <Head>
         <title>Disney | Home</title>
       </Head>
-      <Header setError={() => {}} />
+      <Header />
       <Content title={'Character'} pages={pages || 1}>
         <CardList cards={cards} />
       </Content>
     </Layout>
   );
 }
-
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const cards: RequestAnswerType = await getAllCards(context);
   return {

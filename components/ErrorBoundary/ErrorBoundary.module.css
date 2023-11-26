@@ -1,0 +1,13 @@
+.title {
+  color: #fff;
+  font-size: 3em;
+  margin-bottom: 0.2em;
+}
+.details {
+  color: #fff;
+  margin-bottom: 1em;
+}
+.summary {
+  font-weight: bold;
+  cursor: pointer;
+}

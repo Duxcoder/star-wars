@@ -1,4 +1,4 @@
-import { ReactNode, MouseEvent } from 'react';
+import { ReactNode, MouseEvent, ErrorInfo } from 'react';
 
 export interface CardCharacterCategory {
   _id: string;
@@ -61,9 +61,6 @@ export interface CharacterProps {
   cards: CardCharacterCategory[];
   pages: number;
 }
-export interface HeaderProps {
-  setError: (err: string) => void;
-}
 
 export interface CardListProps {
   cards: [] | CardCharacterCategory[];
@@ -84,4 +81,13 @@ export interface SelectProps {
   options: number[];
   onChange: (value: number) => void;
   label: string;
+}
+
+export interface ErrorBoundaryState {
+  error: Error | null;
+  errorInfo: ErrorInfo | null;
+}
+
+export interface ChildProps {
+  children: ReactNode;
 }

@@ -1,8 +1,11 @@
-import { AppProps } from 'next/app';
-import Router from 'next/router';
+import ErrorBoundary from '@components/ErrorBoundary/ErrorBoundary';
+import Sword from '@components/Loader/Sword';
 import '../assets/styles.css';
-import { Fragment, useEffect, useState } from 'react';
-import Sword from '../components/Loader/Sword';
+
+import Router from 'next/router';
+import { AppProps } from 'next/app';
+import { useEffect, useState } from 'react';
+
 export default function MyApp({ Component, pageProps }: AppProps) {
   const [loading, setLoading] = useState(false);
 
@@ -18,5 +21,5 @@ export default function MyApp({ Component, pageProps }: AppProps) {
       Router.events.off('routeChangeError', end);
     };
   }, []);
-  return <Fragment>{loading ? <Sword /> : <Component {...pageProps} />}</Fragment>;
+  return <ErrorBoundary>{loading ? <Sword /> : <Component {...pageProps} />}</ErrorBoundary>;
 }
