@@ -46,9 +46,21 @@ export interface InputProps {
 
 export interface ContentProps {
   title: string;
+  pages: number;
   children: ReactNode;
 }
 
+export interface indexProps {
+  children: ReactNode;
+  pages: number;
+  cards: CardCharacterCategory[];
+}
+
+export interface CharacterProps {
+  card: CardCharacterCategory;
+  cards: CardCharacterCategory[];
+  pages: number;
+}
 export interface HeaderProps {
   setError: (err: string) => void;
 }
@@ -60,4 +72,16 @@ export interface CardListProps {
 export interface CardProps {
   data: CardCharacterCategory;
   onClick: () => void;
+}
+
+export interface PaginationProps {
+  pages: number;
+}
+
+export interface SelectProps {
+  value: string | number;
+  disabled: boolean;
+  options: number[];
+  onChange: (value: number) => void;
+  label: string;
 }

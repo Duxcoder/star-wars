@@ -1,5 +1,3 @@
-'use client';
-
 import BaseInput from '../UI/BaseInput/BaseInput';
 import BaseButton from '../UI/BaseButton/BaseButton';
 import { RiSearch2Line, RiErrorWarningLine } from 'react-icons/ri';
@@ -20,7 +18,7 @@ const Header = ({ setError }: HeaderProps) => {
     <header className={cl.header}>
       <div className={[cl.container, 'container'].join(' ')}>
         <Link href="/" className={cl.logo}>
-          <span className={[logoFont.className, cl.logoName].join(' ')}>{'DISNAY CARDS'}</span>
+          <span className={[logoFont.className, cl.logoName].join(' ')}>{'DISNEY CARDS'}</span>
         </Link>
         <div className={cl.searchContainer}>
           <BaseInput type={'search'} placeholder={'Find anything...'} />

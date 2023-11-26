@@ -4,20 +4,19 @@ import Content from '@components/Content/Content';
 import CardList from '@components/CardList/CardList';
 import Head from 'next/head';
 
-import { CardCharacterCategory, RequestAnswerType } from '@myTypes/main';
-import { ReactNode } from 'react';
+import { indexProps, RequestAnswerType } from '@myTypes/main';
 import { GetServerSideProps } from 'next';
 
 import { getAllCards } from '../lib/api/cards';
 
-export default function Index({ cards }: { children: ReactNode; cards: CardCharacterCategory[] }) {
+export default function Index({ cards, pages }: indexProps) {
   return (
     <Layout>
       <Head>
         <title>Disney | Home</title>
       </Head>
       <Header setError={() => {}} />
-      <Content title={'Character'}>
+      <Content title={'Character'} pages={pages || 1}>
         <CardList cards={cards} />
       </Content>
     </Layout>
@@ -27,6 +26,6 @@ export default function Index({ cards }: { children: ReactNode; cards: CardChara
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const cards: RequestAnswerType = await getAllCards(context);
   return {
-    props: { cards: cards.data },
+    props: { cards: cards.data, pages: cards.info.totalPages },
   };
 };
