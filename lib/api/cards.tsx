@@ -5,6 +5,7 @@ export const getAllCards = async ({ query }: GetServerSidePropsContext) => {
   const searchParams = {
     page: (query.page as string) || defaultQuery.page,
     pageSize: (query.pageSize as string) || defaultQuery.pageSize,
+    name: (query.name as string) || defaultQuery.name,
   };
   const queryPath = new URLSearchParams(searchParams);
   const response = await fetch(`${API_SERVICE_URL}/character/?${queryPath.toString()}`);

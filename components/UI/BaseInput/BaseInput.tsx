@@ -4,7 +4,7 @@ import { InputProps } from '@myTypes/main';
 
 import { FormEvent } from 'react';
 
-const BaseInput = ({ type, placeholder, disabled, callback }: InputProps) => {
+const BaseInput = ({ type, placeholder, disabled, callback, value }: InputProps) => {
   const returnValue = (event: FormEvent<HTMLInputElement>) => {
     const target = event.target;
     if (target instanceof HTMLInputElement) {
@@ -13,6 +13,7 @@ const BaseInput = ({ type, placeholder, disabled, callback }: InputProps) => {
   };
   return (
     <input
+      value={value}
       disabled={disabled}
       type={type}
       className={cl.input}

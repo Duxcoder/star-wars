@@ -7,7 +7,6 @@ const PageControlPanel = () => {
   const { pageSize, ...currentQuery } = router.query;
 
   const updatePerPage = (value: number) => {
-    console.log(router.query);
     const newUrl = {
       pathname: router.pathname,
       query: { ...currentQuery, pageSize: value, page: 1 },

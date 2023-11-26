@@ -8,9 +8,15 @@ import { useRouter } from 'next/router';
 const CardList = ({ cards }: CardListProps) => {
   const router = useRouter();
   const renderCards = () =>
-    cards.map((card) => (
-      <Card key={card._id} data={card} onClick={() => router.push('/character/' + card._id)} />
-    ));
+    cards.map((card) => {
+      const { page, pageSize, name } = router.query;
+      const newUrl = {
+        pathname: '/character/' + card._id,
+        query: { ...(page && { page }), ...(pageSize && { pageSize }), ...(name && { name }) },
+      };
+      return <Card key={card._id} data={card} onClick={() => router.push(newUrl)} />;
+    });
+
   const renderNotFound = () => {
     return (
       <span className={cl.noResult}>
