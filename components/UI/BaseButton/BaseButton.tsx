@@ -1,6 +1,6 @@
 import cl from './BaseButton.module.css';
 
-import { ButtonProps } from '../../../@types';
+import { ButtonProps } from '@myTypes/main';
 
 import classNames from 'classnames/bind';
 const BaseButton = ({

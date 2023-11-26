@@ -1,6 +1,6 @@
 import cl from './BaseInput.module.css';
 
-import { InputProps } from '../../../@types';
+import { InputProps } from '@myTypes/main';
 
 import { FormEvent } from 'react';
 

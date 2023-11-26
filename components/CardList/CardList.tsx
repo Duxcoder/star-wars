@@ -2,11 +2,14 @@ import Card from '../Card/Card';
 import { RiFileExcelLine } from 'react-icons/ri';
 import cl from './CardList.module.css';
 
-import { CardListProps } from '../../@types';
-
+import { CardListProps } from '@myTypes/main';
+import { useRouter } from 'next/router';
 const CardList = ({ cards }: CardListProps) => {
+  const router = useRouter();
   const renderCards = () =>
-    cards.map((card) => <Card key={card._id} data={card} onClick={() => {}} />);
+    cards.map((card) => (
+      <Card key={card._id} data={card} onClick={() => router.push('/character/' + card._id)} />
+    ));
   const renderNotFound = () => {
     return (
       <span className={cl.noResult}>

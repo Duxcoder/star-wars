@@ -1,7 +1,7 @@
 import { checkNotFoundText } from '../../utils/utils';
 import cl from './Card.module.css';
 
-import { CardCharacterCategory, CardProps } from '../../@types';
+import { CardCharacterCategory, CardProps } from '@myTypes/main';
 
 import { useEffect, useState } from 'react';
 

@@ -8,13 +8,16 @@
     "noEmit": true,
     "esModuleInterop": true,
     "module": "esnext",
-    "moduleResolution": "bundler",
+    "moduleResolution": "NodeNext",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
     "paths": {
-      "@/*": ["./src/*"]
+      "@components/*": ["./components/*"],
+      "@myTypes/*": ["./@types/*"],
+      "@pages/*": ["./pages/*"],
+      "@constants": ["./lib/constants.ts"]
     },
     "plugins": [
       {
