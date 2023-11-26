@@ -24,6 +24,7 @@ export default function Index({ cards, pages }: indexProps) {
 }
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const cards: RequestAnswerType = await getAllCards(context);
+  context.res.setHeader('Cache-Control', 'public, s-maxage=10, stale-while-revalidate=59');
   return {
     props: { cards: cards.data, pages: cards.info.totalPages },
   };

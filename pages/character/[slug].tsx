@@ -28,7 +28,7 @@ export default function Character({ cards, card, pages }: CharacterProps) {
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const card: RequestAnswerCardType = await getCard(context);
   const cards: RequestAnswerType = await getAllCards(context);
-
+  context.res.setHeader('Cache-Control', 'public, s-maxage=10, stale-while-revalidate=59');
   return {
     props: { card: card.data, cards: cards.data, pages: cards.info.totalPages },
   };
