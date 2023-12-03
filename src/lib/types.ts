@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, RefObject } from "react";
 import { CountryCodes } from "./constants";
 
 export interface CardProps {
@@ -22,7 +22,7 @@ export interface IFormDataYup {
   age: number;
   email: string;
   password: string;
-  passwordConfirmation: string;
+  passwordConfirm: string;
   sex: "male" | "female";
   image: File;
   country: CountryCodes;
@@ -32,6 +32,7 @@ export interface IFormDataYup {
 export interface SelectProps {
   label: string;
   list: string[];
-  onChange: (item: string) => void;
+  onChange?: (item: string) => void;
   selected: string;
+  setRef?: RefObject<HTMLInputElement>;
 }

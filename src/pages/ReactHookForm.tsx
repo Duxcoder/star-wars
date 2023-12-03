@@ -1,3 +1,16 @@
+import {
+  ErrorMessage,
+  Form,
+  Input,
+  Label,
+  NameInput,
+  SelectContainer,
+  SexBlock,
+  SexBlockContent,
+  SexBlockName,
+  SexLabel,
+  Submit,
+} from "../assets/formStyles";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import YupPassword from "yup-password";
 import * as yup from "yup";
@@ -8,11 +21,19 @@ import { IFormDataYup } from "../lib/types";
 import { notFoundImage } from "../lib/constants";
 
 import { Select } from "../components/UI/Select/Select";
-import { useAppActionsHookForm, useAppSelector } from "../redux/hooks";
+import {
+  useAppActionsBaseState,
+  useAppActionsHookForm,
+  useAppSelector,
+} from "../redux/hooks";
+import { getSchema } from "../lib/schema";
+import { ControllerRenderProps } from "react-hook-form/dist/types/controller";
+import { useNavigate } from "react-router-dom";
 
 const ReactHookForm = () => {
   YupPassword(yup);
   const redux = useAppSelector((state) => state.reactHookForm);
+  const { allCountry } = useAppSelector((state) => state.baseState);
   const {
     setName,
     setAge,
@@ -22,73 +43,23 @@ const ReactHookForm = () => {
     setPassword,
     setCountry,
   } = useAppActionsHookForm();
-  const { allCountry } = useAppSelector((state) => state.baseState);
 
-  const MAX_FILE_SIZE = 1024000;
+  const navigate = useNavigate();
 
-  const validFileExtensions = ["image/jpeg", "image/png"];
-
-  const schema = yup.object().shape({
-    name: yup
-      .string()
-      .required()
-      .test(
-        "firstLetterUppercase",
-        "The first letter must be capitalized",
-        (value) => /^[A-ZА-ЯЁ]/.test(value)
-      ),
-    age: yup
-      .number()
-      .transform((value) => (Number.isNaN(value) ? null : value))
-      .nullable()
-      .min(1)
-      .required(),
-    email: yup.string().email().required(),
-    password: yup
-      .string()
-      .password()
-      .min(0)
-      .minNumbers(1)
-      .minLowercase(1)
-      .minUppercase(1)
-      .minSymbols(1)
-      .required(),
-    passwordConfirmation: yup
-      .string()
-      .oneOf([yup.ref("password")], "Passwords must match")
-      .required(),
-    sex: yup
-      .string()
-      .oneOf(["male", "female"], "Select male or female")
-      .required(),
-    country: yup
-      .string()
-      .required()
-      .oneOf(allCountry, "Select a country from the list"),
-    image: yup
-      .mixed<File>()
-      .required()
-      .test(
-        "fileSize",
-        "File Size is too large",
-        (file) => file.size <= MAX_FILE_SIZE
-      )
-      .test("fileType", "Unsupported File Format", (file: File) =>
-        validFileExtensions.includes(file.type)
-      ),
-    acceptTerms: yup.boolean().isTrue().required(),
-  });
+  const { addForm } = useAppActionsBaseState();
+  const schema = getSchema(allCountry);
 
   const {
     register,
     control,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
     reset,
   } = useForm<IFormDataYup>({
     mode: "onBlur",
     resolver: yupResolver(schema),
   });
+
   const onSubmit: SubmitHandler<IFormDataYup> = (data) => {
     const reader = new FileReader();
     reader.readAsDataURL(data.image);
@@ -102,121 +73,158 @@ const ReactHookForm = () => {
       setSex(sex);
       setImage(image || notFoundImage);
       setCountry(country);
+      addForm({
+        name,
+        age,
+        email,
+        sex,
+        password,
+        country,
+        image: image || notFoundImage,
+      });
       reset();
+      navigate("/");
     };
   };
+
+  const onChangeImg = (
+    e: ChangeEvent<HTMLInputElement>,
+    field: ControllerRenderProps<IFormDataYup, "image">
+  ) => {
+    const files = e.target.files;
+    if (files?.length) return field.onChange(files[0]);
+    return null;
+  };
+
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <label htmlFor="name">
-        <span> Name </span>
-        <input id="name" placeholder={redux.name} {...register("name")} />
-      </label>
-      <p>{errors.name?.message}</p>
+    <>
+      <h1>React Hook Form</h1>
+      <Form onSubmit={handleSubmit(onSubmit)}>
+        <Label htmlFor="name">
+          <NameInput> Name: </NameInput>
+          <Input id="name" placeholder={redux.name} {...register("name")} />
+          <ErrorMessage>{errors.name?.message}</ErrorMessage>
+        </Label>
 
-      <label htmlFor="age">
-        <span> Age </span>
-        <input
-          id="age"
-          type="number"
-          placeholder={redux.age.toString()}
-          {...register("age")}
-        />
-      </label>
-      <p>{errors.age?.message}</p>
-
-      <label htmlFor="email">
-        <span> Email </span>
-        <input
-          id="email"
-          type="email"
-          placeholder={redux.email}
-          {...register("email")}
-        />
-      </label>
-      <p>{errors.email?.message}</p>
-
-      <label htmlFor="password">
-        <span> Password </span>
-        <input
-          id="password"
-          type="password"
-          placeholder={redux.password}
-          {...register("password")}
-        />
-      </label>
-      <p>{errors.password?.message}</p>
-
-      <label htmlFor="confirmPassword">
-        <span> Confirm Password </span>
-        <input
-          id="confirmPassword"
-          type="password"
-          placeholder={redux.password}
-          {...register("passwordConfirmation")}
-        />
-      </label>
-      <p>{errors.passwordConfirmation?.message}</p>
-
-      <div>
-        <span> Sex </span>
-        <label htmlFor="sex-male">
-          <input type="radio" value="male" id="sex-male" {...register("sex")} />
-          Male
-        </label>
-        <label htmlFor="sex-female">
-          <input
-            type="radio"
-            value={"female"}
-            id="sex-female"
-            {...register("sex")}
+        <Label htmlFor="age">
+          <NameInput> Age: </NameInput>
+          <Input
+            id="age"
+            type="number"
+            placeholder={redux.age.toString()}
+            {...register("age")}
           />
-          Female
-        </label>
-      </div>
-      <p>{errors.sex?.message}</p>
+          <ErrorMessage>{errors.age?.message}</ErrorMessage>
+        </Label>
 
-      <Controller
-        name="image"
-        control={control}
-        render={({ field }) => (
-          <label htmlFor="picture">
-            <span> Picture </span>
-            <input
-              id="picture"
-              type="file"
-              onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                const files = e.target.files;
-                if (files?.length) field.onChange(files[0]);
-              }}
-            />
-          </label>
-        )}
-      />
-      <p>{errors.image?.message}</p>
-
-      <Controller
-        control={control}
-        name="country"
-        defaultValue={redux.country}
-        render={({ field: { onChange } }) => (
-          <Select
-            label="Country"
-            list={allCountry}
-            onChange={onChange}
-            selected={redux.country}
+        <Label htmlFor="email">
+          <NameInput> Email: </NameInput>
+          <Input
+            id="email"
+            type="email"
+            placeholder={redux.email}
+            {...register("email")}
           />
-        )}
-      />
-      <p>{errors.country?.message}</p>
+          <ErrorMessage>{errors.email?.message}</ErrorMessage>
+        </Label>
 
-      <label htmlFor="acceptTerms">
-        <span> Terms & Conditions </span>
-        <input id="acceptTerms" type="checkbox" {...register("acceptTerms")} />
-      </label>
-      <p>{errors.acceptTerms?.message}</p>
+        <Label htmlFor="password">
+          <NameInput> Password: </NameInput>
+          <Input
+            id="password"
+            type="password"
+            placeholder={redux.password}
+            {...register("password")}
+          />
+          <ErrorMessage>{errors.password?.message}</ErrorMessage>
+        </Label>
 
-      <input type="submit" />
-    </form>
+        <Label htmlFor="passwordConfirm">
+          <NameInput> Confirm Password: </NameInput>
+          <Input
+            id="passwordConfirm"
+            type="password"
+            placeholder={redux.password}
+            {...register("passwordConfirm")}
+          />
+          <ErrorMessage>{errors.passwordConfirm?.message}</ErrorMessage>
+        </Label>
+
+        <Controller
+          control={control}
+          name="country"
+          defaultValue={redux.country}
+          render={({ field: { onChange } }) => (
+            <SelectContainer>
+              <Select
+                label="Country:"
+                list={allCountry}
+                onChange={onChange}
+                selected={redux.country}
+              />
+              <ErrorMessage>{errors.country?.message}</ErrorMessage>
+            </SelectContainer>
+          )}
+        />
+
+        <Controller
+          name="image"
+          control={control}
+          render={({ field }) => (
+            <Label htmlFor="picture">
+              <NameInput> Picture: </NameInput>
+              <Input
+                id="picture"
+                type="file"
+                onBlur={field.onBlur}
+                onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                  onChangeImg(e, field)
+                }
+              />
+              <ErrorMessage>{errors.image?.message}</ErrorMessage>
+            </Label>
+          )}
+        />
+
+        <SexBlock>
+          <SexBlockName> Sex: </SexBlockName>
+          <SexBlockContent>
+            <SexLabel htmlFor="sex-male">
+              Male
+              <Input
+                type="radio"
+                value="male"
+                id="sex-male"
+                checked
+                {...register("sex")}
+              />
+            </SexLabel>
+            <SexLabel htmlFor="sex-female">
+              Female
+              <Input
+                type="radio"
+                value={"female"}
+                id="sex-female"
+                {...register("sex")}
+              />
+            </SexLabel>
+            <ErrorMessage>{errors.sex?.message}</ErrorMessage>
+          </SexBlockContent>
+        </SexBlock>
+
+        <Label htmlFor="acceptTerms">
+          <NameInput> Terms & Conditions: </NameInput>
+          <Input
+            id="acceptTerms"
+            type="checkbox"
+            {...register("acceptTerms")}
+          />
+          <ErrorMessage>{errors.acceptTerms?.message}</ErrorMessage>
+        </Label>
+
+        <Submit disabled={!isValid} type="submit" value="Save to redux" />
+      </Form>
+    </>
   );
 };
 
